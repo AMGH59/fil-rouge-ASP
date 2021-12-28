@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div>
+    <h2 class="p-2 text-center">Connexion</h2>
+    <div class="d-flex justify-content-center ">
+        <div class="p-5 border-top border-bottom border-dark">
+            <div class="container bg-light p-5 rounded">
+                <h3> Créer un compte : </h3>
+                <hr />
+                <form action="POST" class="form d-flex flex-column ">
+                    <label htmlFor="name" class="border-dark">Prénom</label><input type="text" name="name" id="" />
+                    <label htmlFor="email">e-mail</label><input type="email" name="email" id="" />
+                    <label htmlFor="password-once">Mot de passe</label><input type="text" name="password-once" id="" />
+                    <label htmlFor="password-twice">Confirmer le mot de passe</label><input type="text" name="password-twice" id="" />
+                    <button type="submit" class="btn btn-dark mt-2">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+    
+        <div class="p-5 border-top border-bottom border-dark">
+            <div class="container bg-light p-5 rounded">
+                <h3> Déjà un compte ? </h3>
+                <hr />
+                <form class="form d-flex flex-column">
+                    <label htmlFor="email">e-mail</label><input type="email" name="email" id="" />
+                    <label htmlFor="password-once">Mot de passe</label><input type="password" name="password-once" />
+                    <button type="button" class="btn btn-dark mt-2" >Se connecter</button>
+                </form>
+            </div>
+            @*:
+            <div class="container bg-light p-5 rounded">
+
+                <h4>Vous n'êtes pas {this.props.name} ?</h4>
+                <button class='btn btn-dark' onClick={() => this.handleClick()}>se déconnecter</button>
+            </div>*@
+        </div>
+    </div>
+</div>
+
