@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject SigninService _signinService
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,30 +8,71 @@
     <title>@ViewData["Title"] - projet_filrouge_ASP</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/banner.css" />
+
 </head>
 <body>
     <header>
+        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" id="scrollmenu">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src=~/img/devtalks-logo-rsz.png alt="devtalks-logo" class="devtalk-logo" />
+                </a>
+            </a>
+           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>*@
+        @*<div class="d-flex  justify-content-end">*@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                @if (!_signinService.IsLogged())
+                {
+
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                        <img src=~/img/devtalks-logo-rsz.png alt="devtalks-logo" className="devtalk-logo" />
+                        <img src=~/img/devtalks-logo-rsz.png alt="devtalks-logo" class="devtalk-logo align-items-start" />
                     </a>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        @*<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Signin" asp-action="Index">Se connecter</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Signin" asp-action="Index">Créer un compte</a>
-                        </li>*@
-                    </ul>
-                </div>
+                    <div class="d-flex  justify-content-end">
+
+                        <ul class="navbar-nav flex-grow-1">
+
+                            @*<li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Signin" asp-action="Index">Se connecter</a>
+                            </li>
+                            <li class="nav-item">
+                             <a class="nav-link text-dark" asp-area="" asp-controller="Signin" asp-action="Index">Créer un compte</a>
+                            </li>*@
+                        </ul>
+                    </div>
+
+                }
+                else
+                {
+
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src=~/img/devtalks-logo-rsz.png alt="devtalks-logo" class="devtalk-logo align-items-start" />
+                    </a>
+                    <div class="d-flex  justify-content-end">
+                        <ul class='menu'>
+                            <img src=~/img/user-pic.jpg alt="user-logo " class='user-logo logo-hover border shadow-sm p-1' />
+                            <li class='scrolling-menu'>
+                                <ul class='shadow menu-content bg-light p-4 border'>
+                                    <li class='dropdown-item'>Votre Profil</li>
+                                    <hr />
+                                    <li>Vous n'êtes pas <br><b>@_signinService.FirstName @_signinService.LastName</b> ?</li>
+                                    <li class='small'>
+                                        <a asp-action="Logout" asp-controller="Signin" asp-route-type="reco">
+                                            changer d'utilsateur
+                                        </a>
+                                    </li>
+                                    <li class='small'>ou <a asp-action="Logout" asp-controller="Signin" asp-route-type="deco">déconnecter</a>  </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                }
             </div>
         </nav>
     </header>

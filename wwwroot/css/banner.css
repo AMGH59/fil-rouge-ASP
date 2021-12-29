@@ -1,0 +1,50 @@
+.navbar{
+    height: 70px;
+}
+.devtalk-logo{
+    height: 45px;
+    margin: 0 0 5px 0px;
+}
+.avatar-logo, .user-logo {
+    height: 45px;
+    margin: 15px 0 0px 0px;
+}
+
+
+/*.disp-flex{
+    display: flex;
+}
+.just-sb{
+    justify-content: space-between;
+}*/
+
+.scrolling-menu{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5 ease;
+    /* border: 2px;
+    margin: 2px; */
+    position: relative;
+    right :100px;
+    margin-right: -25px;
+
+}
+.menu-content{
+    list-style: none;
+}
+.menu{
+    list-style: none;
+    position: relative;
+    left :40px
+}
+
+.logo-hover:hover~.scrolling-menu{
+    overflow: visible;
+}
+.scrolling-menu:hover{
+    overflow: visible;
+}
+.lien-compte{
+    margin-top: -15px;
+    text-decoration: none;
+}

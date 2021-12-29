@@ -1,3 +1,7 @@
+using devTalksASP.Interfaces;
+using devTalksASP.Models;
+using devTalksASP.Repositories;
+using devTalksASP.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +27,12 @@ namespace devTalksASP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<DataContext>();
+            services.AddScoped<IRepository<User>, UserRepository>();
+            services.AddHttpContextAccessor();
+            services.AddSession();
+            services.AddScoped<SigninService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +51,8 @@ namespace devTalksASP
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
