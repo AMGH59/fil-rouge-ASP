@@ -31,8 +31,6 @@ namespace devTalksASP.Models
             Responses = new List<Message>();
             Technos = new List<Techno>();
 
-            // En attendant la connection avec User (Fake User)
-            Author = new User { FirstName = "Tutu", LastName = "Titi", Email = "tutu@titi.com", Id = 2, IsAdmin = true, IsLogged = true, StateUser = User.StateEnum.Accept, Password = "123" };
         }
 
         public int Id { get => id; set => id = value; }

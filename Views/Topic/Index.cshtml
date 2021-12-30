@@ -1,30 +1,46 @@
 ﻿@model List<Topic>
 
-
+<section>
+    <form asp-controller="Topic" asp-action="SubmitSearch" method="post">
+        <div class="row m-2 justify-content-center">
+            <input type="text" name="searchNavbar" placeholder="Votre recherche ici..." class="col-5 form-control" />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</section>
 <section>
     @if (Model != null)
     {
-        <div>
-            @foreach (Topic t in Model)
-            {
-                <div>
-                    <div>
-                        <h2><a asp-controller="Topic" asp-action="" asp-route-id="@t.Id">@t.Question</a></h2>
-                    </div>
-                    <div>@t.Body</div>
+        @if (Model.Count == 0)
+        {
+            <div class="col alert alert-danger justify-content-center text-center">
+                No question available
+            </div>
+        }
+        else
+        {
+            <div>
+                @foreach (Topic t in Model)
+                {
                     <div>
                         <div>
-                            @t.Responses.Count answers
+                            <h2><a asp-controller="Topic" asp-action="" asp-route-id="@t.Id">@t.Question</a></h2>
                         </div>
+                        <div>@t.Body</div>
                         <div>
-                            posted by @t.Author at @t.Date
+                            <div>
+                                @t.Responses.Count answers
+                            </div>
+                            <div>
+                                posted by @t.Author at @t.Date
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
+        }
     }
-    else
+    else if (Model.Count == 0)
     {
         <div class="col alert alert-danger justify-content-center text-center">
             No question available

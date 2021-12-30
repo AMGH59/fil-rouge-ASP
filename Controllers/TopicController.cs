@@ -21,6 +21,11 @@ namespace devTalksASP.Controllers
             List<Topic> topics = _topicRepository.GetAll();
             return View("Index", topics);
         }
+        public IActionResult SubmitSearch(string searchNavbar)
+        {
+            List<Topic> topics = (List<Topic>)_topicRepository.Search(t => t.Question.Contains(searchNavbar) || t.Body.Contains(searchNavbar));
+            return View("Index", topics);
+        }
 
         public IActionResult NewTopicForm()
         {
