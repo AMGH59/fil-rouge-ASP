@@ -11,31 +11,13 @@
 }
 
 
-/*.disp-flex{
-    display: flex;
-}
-.just-sb{
-    justify-content: space-between;
-}*/
-
 .scrolling-menu{
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5 ease;
-    /* border: 2px;
-    margin: 2px; */
-    position: relative;
-    right :100px;
-    margin-right: -25px;
-
 }
-.menu-content{
+.menu-content, .menu {
     list-style: none;
-}
-.menu{
-    list-style: none;
-    position: relative;
-    left :40px
 }
 
 .logo-hover:hover~.scrolling-menu{

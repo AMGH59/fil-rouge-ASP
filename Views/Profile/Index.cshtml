@@ -3,14 +3,22 @@
 *@
 @{
 }
-<nav class="bg-light flex-column overflow-auto "  style="height: 78vh; width:250px">
-    <div class="d-flex align-items-center border-bottom m-2">
+<nav class="bg-light flex-column overflow-auto shadow-sm "  style="height: 78vh; width:250px">
+    <div class="d-flex align-items-center border-bottom m-2 pb-2">
         <img src=~/img/user-pic.jpg alt="avatar" class="border rounded m-1" />
-        <h3 class="m-1">@ViewBag.SigninService.FirstName @ViewBag.SigninService.LastName</h3>
+        <h4 class="m-1 pl-2">@ViewBag.SigninService.FirstName @ViewBag.SigninService.LastName</h4>
     </div>
     
     <ul style="list-style:none" class="mt-3">
-        <li>Vos topics</li>
-        <li>Vos réponses</li>
+        <li>
+            <a asp-action="Index" asp-controller="Profile" class="dropdown-item">
+                Vos questions
+            </a>
+        </li>
+        <li>
+            <a asp-action="Index" asp-controller="Profile" class="dropdown-item">
+                Vos réponses
+            </a>
+        </li>
     </ul>
 </nav>

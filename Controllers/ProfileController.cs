@@ -16,8 +16,12 @@ namespace devTalksASP.Controllers
         }
         public IActionResult Index()
         {
-            ViewBag.SigninService = _signinService;
-            return View();
+            if (_signinService.IsLogged())
+            {
+                ViewBag.SigninService = _signinService;
+                return View();
+            }
+            return RedirectToAction("Index", "Signin");
         }
     }
 }

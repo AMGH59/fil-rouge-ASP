@@ -39,11 +39,11 @@
                         <ul class="navbar-nav flex-grow-1">
 
                             @*<li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Signin" asp-action="Index">Se connecter</a>
-                                </li>
-                                <li class="nav-item">
-                                 <a class="nav-link text-dark" asp-area="" asp-controller="Signin" asp-action="Index">Créer un compte</a>
-                                </li>*@
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Signin" asp-action="Index">Se connecter</a>
+                    </li>
+                    <li class="nav-item">
+                     <a class="nav-link text-dark" asp-area="" asp-controller="Signin" asp-action="Index">Créer un compte</a>
+                    </li>*@
                         </ul>
                     </div>
 
@@ -54,28 +54,30 @@
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                         <img src=~/img/devtalks-logo-rsz.png alt="devtalks-logo" class="devtalk-logo align-items-start" />
                     </a>
-                    <div class="d-flex  justify-content-end">
+                    <div class="d-flex  justify-content-end dropdown">
                         <ul class='menu'>
                             <img src=~/img/user-pic.jpg alt="user-logo " class='user-logo logo-hover border shadow-sm p-1' />
-                            <li class='scrolling-menu'>
-                                <ul class='shadow menu-content bg-light p-4 border'>
-                                    <a asp-action="Index" asp-controller="Profile" class="text-decoration-none">
-                                        <li class='dropdown-item'>
+                            <li class='scrolling-menu' style="width:147px">
+                                <ul class='shadow menu-content bg-light p-0 border '>
+                                    <li>
+                                        <a asp-action="Index" asp-controller="Profile" class='dropdown-item'>
                                             Votre Profil
-                                        </li>
-                                    </a>
-                                    <hr />
-                                    <li>Vous n'êtes pas <br><b>@_signinService.FirstName @_signinService.LastName</b> ?</li>
+                                        </a>
+                                    </li>
+                                    <div class="pr-2 pl-2 border-top mt-2">
+                                    <li><small>Vous n'êtes pas <br><b>@_signinService.FirstName @_signinService.LastName</b> ?</small></li>
                                     <li class='small'>
                                         <a asp-action="Logout" asp-controller="Signin" asp-route-type="reco">
                                             changer d'utilsateur
                                         </a>
                                     </li>
                                     <li class='small'>ou <a asp-action="Logout" asp-controller="Signin" asp-route-type="deco">se déconnecter</a>  </li>
-                                </ul>
-                            </li>
-                        </ul>
                     </div>
+
+                    </ul>
+                    </li>
+                    </ul>
+                </div>
 
                 }
             </div>
