@@ -34,6 +34,7 @@ namespace devTalksASP
             services.AddScoped<SigninService>();
             services.AddScoped<IRepository<Message>, MessageRepository>();
             services.AddScoped<IRepository<Topic>, TopicRepository>();
+            services.AddScoped<IRepository<Techno>, TechnoRepository>();
             
         }
 

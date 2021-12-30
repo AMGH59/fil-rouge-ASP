@@ -17,11 +17,16 @@ namespace devTalksASP.Repositories
         {
             return _dataContext.Messages.Find(id);
         }
-
         public bool Save(Message message)
         {
             _dataContext.Messages.Add(message);
-            return _dataContext.SaveChanges()>0;
+            return _dataContext.SaveChanges() > 0;
+        }
+        public Message SaveIt(Message message)
+        {
+            _dataContext.Messages.Add(message);
+            _dataContext.SaveChanges();
+            return message;
         }
 
         public IEnumerable<Message> Search(Func<Message, bool> predicate)
@@ -48,6 +53,11 @@ namespace devTalksASP.Repositories
         public Message SearchOne(Expression<Func<Message, bool>> searchMethode)
         {
             throw new NotImplementedException();
+        }
+
+        public List<Message> GetAll()
+        {
+            return _dataContext.Messages.ToList();
         }
     }
 }
