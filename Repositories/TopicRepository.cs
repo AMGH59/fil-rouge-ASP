@@ -61,5 +61,10 @@ namespace devTalksASP.Repositories
         {
             return _dataContext.Topics.ToList();
         }
+
+        public List<Topic> GetAllByTopic(int Id_topic)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

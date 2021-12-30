@@ -16,6 +16,7 @@ namespace devTalksASP.Interfaces
         IEnumerable<T> Search(Expression<Func<T, bool>> predicate);
         T SearchOne(Expression<Func<T, bool>> searchMethode);
         List<T> GetAll();
+        public List<T> GetAllByTopic(int Id_topic);
 
     }
 }

@@ -23,6 +23,11 @@ namespace devTalksASP.Repositories
             return _dataContext.Users.ToList();
         }
 
+        public List<User> GetAllByTopic(int Id_topic)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Save(User user)
         {
             _dataContext.Users.Add(user);

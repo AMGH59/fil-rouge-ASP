@@ -1,5 +1,6 @@
 ﻿using devTalksASP.Interfaces;
 using devTalksASP.Models;
+using devTalksASP.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -44,7 +45,11 @@ namespace devTalksASP.Controllers
         public IActionResult Detail(int id)
         {
             Topic topic = _topicRepository.FinById(id);
-            return View(topic);
+            List<Message> responses = _messageRepository.GetAllByTopic(id);
+            TopicMessageViewModel tmvm = new TopicMessageViewModel();
+            tmvm.Topic = topic;
+            tmvm.Messages = responses;
+            return View(tmvm);
         }
         public IActionResult SubmitAnswer(Message answer, int Id_user, int Id_topic)
         {

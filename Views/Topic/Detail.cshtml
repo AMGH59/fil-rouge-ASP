@@ -1,33 +1,43 @@
-﻿@model Topic
+﻿@model TopicMessageViewModel
 
 <section>
-    @if (Model.Id > 0)
+    @if (Model.Topic.Id > 0)
     {
-        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" name="id" value="@Model.Topic.Id" />
     }
     <div>
-        <h1>@Model.Question</h1>
+        <h1>@Model.Topic.Question</h1>
     </div>
     <div>
-        @Model.Body
+        @Model.Topic.Body
     </div>
     <div class="mb-5">
-        from @Model.Author postée le @Model.Date
+        from @Model.Topic.Author postée le @Model.Topic.Date
     </div>
 </section>
 
 <section>
     <h4>Réponses</h4>
     <div>
-
+        @foreach (Message answer in Model.Topic.Responses)
+        {
+            <div>
+                <div>
+                    @answer.Body
+                </div>
+                <div>
+                    réponse postée par @answer.Id_user le @answer.Date
+                </div>
+            </div>
+        }
     </div>
 </section>
 
 <section>
     <h4>Votre réponse</h4>
     <form asp-controller="Topic" asp-action="SubmitAnswer" method="post" asp-route-Id_topic="Id" asp-route-Id_user="Id_user">
-        <input type="hidden" name="Id_topic" value="@Model.Id" />
-        <input type="hidden" name="Id_user" value="1"/>
+        <input type="hidden" name="Id_topic" value="@Model.Topic.Id" />
+        <input type="hidden" name="Id_user" value="1" />
 
         <div class="input-group mb-3">
             <textarea name="Body" class="form-control" style="height : 300px" placeholder="Ecrivez votre réponse ici..."></textarea>

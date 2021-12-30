@@ -59,5 +59,9 @@ namespace devTalksASP.Repositories
         {
             return _dataContext.Messages.ToList();
         }
+        public List<Message> GetAllByTopic(int Id_topic)
+        {
+            return _dataContext.Messages.Where(m => m.Id_topic == Id_topic).ToList();
+        }
     }
 }
