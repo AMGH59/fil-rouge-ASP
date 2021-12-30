@@ -29,7 +29,7 @@ namespace devTalksASP.Models
         }
         public Message()
         {
-
+            Date = DateTime.Now;
         }
         public int Id { get => id; set => id = value; }
         public int Id_topic { get => id_topic; set => id_topic = value; }

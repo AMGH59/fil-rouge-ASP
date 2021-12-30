@@ -25,7 +25,7 @@ namespace devTalksASP.Models
 
         public Topic()
         {
-
+            Date = DateTime.Now;
         }
 
         public int Id { get => id; set => id = value; }

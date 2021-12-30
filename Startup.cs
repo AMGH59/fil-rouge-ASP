@@ -67,6 +67,11 @@ namespace devTalksASP
                     defaults: "index"
                     );
 
+                // Accès rapide pour le développement
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Topic}/{action=Index}");
+
             });
         }
     }
