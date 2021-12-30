@@ -66,7 +66,11 @@ namespace devTalksASP
                     pattern: "/signin",
                     defaults: "index"
                     );
-
+                endpoints.MapControllerRoute(
+                    name: "profile",
+                    pattern: "/profile",
+                    defaults: "index"
+                    );
             });
         }
     }

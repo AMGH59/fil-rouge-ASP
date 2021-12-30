@@ -12,10 +12,10 @@ namespace devTalksASP.Services
     {
         private IRepository<User> _userRepository;
         private IHttpContextAccessor _accessor;
-        private string firstName, lastName;
-
         public string FirstName { get => _accessor.HttpContext.Session.GetString("firstname"); }
         public string LastName { get => _accessor.HttpContext.Session.GetString("lastname"); }
+        public int? UserId { get => _accessor.HttpContext.Session.GetInt32("id"); }
+
 
         public SigninService(IRepository<User> userRepository, IHttpContextAccessor accessor)
         {
@@ -31,6 +31,7 @@ namespace devTalksASP.Services
                 _accessor.HttpContext.Session.SetString("isLogged", "true");
                 _accessor.HttpContext.Session.SetString("firstname", u.FirstName);
                 _accessor.HttpContext.Session.SetString("lastname", u.LastName);
+                _accessor.HttpContext.Session.SetInt32("id", u.Id);
                 return true;
             }
             return false;

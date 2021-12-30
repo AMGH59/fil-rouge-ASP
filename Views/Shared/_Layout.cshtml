@@ -59,7 +59,11 @@
                             <img src=~/img/user-pic.jpg alt="user-logo " class='user-logo logo-hover border shadow-sm p-1' />
                             <li class='scrolling-menu'>
                                 <ul class='shadow menu-content bg-light p-4 border'>
-                                    <li class='dropdown-item'>Votre Profil</li>
+                                    <a asp-action="Index" asp-controller="Profile" class="text-decoration-none">
+                                        <li class='dropdown-item'>
+                                            Votre Profil
+                                        </li>
+                                    </a>
                                     <hr />
                                     <li>Vous n'êtes pas <br><b>@_signinService.FirstName @_signinService.LastName</b> ?</li>
                                     <li class='small'>
