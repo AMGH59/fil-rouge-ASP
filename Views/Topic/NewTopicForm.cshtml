@@ -3,7 +3,7 @@
 <section>
     <div class="justify-content-center">
         <h2 class="text-center p-2"></h2>
-        <form asp-controller="Topic" asp-action="SubmitNewTopic" method="post">
+        <form asp-controller="Topic" asp-action="SubmitNewTopic" asp-route-authorId="AuthorId" method="post">
             <input type="hidden" name="AuthorId" value="1"/>
 
             <div class="input-group mb-3">
@@ -24,12 +24,6 @@
                 <span class="input-group-text">Détails de la question</span>
                 <textarea name="Body" class="form-control" style="height : 300px" placeholder="Ecrivez des détails (description, contexte, informations complémentaires) qui aideront à la comprehension de votre question ..."></textarea>
             </div>
-
-            @*En attendant la connection avec User*@
-            @*<div class="input-group mb-3">
-                <span class="input-group-text">AuthorId</span>
-                <input name="AuthorId" type="number" class="form-control" placeholder="AuthorId">
-            </div>*@
 
             <div class="justify-content-center m-2">
                 <button class="btn btn-success" type="submit">Publier la question</button><span class="text-light">En cliquant sur le boutton "Poster la question", votre question deviendra public</span>

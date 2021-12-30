@@ -9,10 +9,12 @@ namespace devTalksASP.Controllers
     {
         IRepository<Topic> _topicRepository;
         IRepository<Techno> _technoRepository;
-        public TopicController(IRepository<Topic> topicRepository, IRepository<Techno> technoRepository)
+        IRepository<User> _userRepository;
+        public TopicController(IRepository<Topic> topicRepository, IRepository<Techno> technoRepository, IRepository<User> userRepository)
         {
             _topicRepository = topicRepository;
             _technoRepository = technoRepository;
+            _userRepository = userRepository;
         }
         public IActionResult Index()
         {
@@ -25,8 +27,9 @@ namespace devTalksASP.Controllers
             List<Techno> technos = _technoRepository.GetAll();
             return View("NewTopicForm", technos);
         }
-        public IActionResult SubmitNewTopic(Topic topic)
+        public IActionResult SubmitNewTopic(Topic topic, int authorId)
         {
+            topic.Author = _userRepository.FinById(authorId);
             _topicRepository.SaveIt(topic);
             return RedirectToAction("Index");
         }
