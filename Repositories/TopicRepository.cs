@@ -43,7 +43,8 @@ namespace devTalksASP.Repositories
 
         public IEnumerable<Topic> Search(Expression<Func<Topic, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _dataContext.Topics.Where(predicate).ToList();
+
         }
 
         public Topic SearchOne(Expression<Func<Topic, bool>> searchMethode)

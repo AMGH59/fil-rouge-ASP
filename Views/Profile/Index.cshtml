@@ -3,22 +3,51 @@
 *@
 @{
 }
-<nav class="bg-light flex-column overflow-auto shadow-sm "  style="height: 78vh; width:250px">
-    <div class="d-flex align-items-center border-bottom m-2 pb-2">
-        <img src=~/img/user-pic.jpg alt="avatar" class="border rounded m-1" />
-        <h4 class="m-1 pl-2">@ViewBag.SigninService.FirstName @ViewBag.SigninService.LastName</h4>
-    </div>
-    
-    <ul style="list-style:none" class="mt-3">
-        <li>
-            <a asp-action="Index" asp-controller="Profile" class="dropdown-item">
-                Vos questions
-            </a>
-        </li>
-        <li>
-            <a asp-action="Index" asp-controller="Profile" class="dropdown-item">
-                Vos réponses
-            </a>
-        </li>
-    </ul>
-</nav>
+<div class="container d-flex ">
+    <nav class="bg-light flex-column overflow-auto shadow-sm " style="min-height: 78vh; width:250px">
+        <div class="d-flex align-items-center border-bottom m-2 pb-2">
+            <img src=~/img/user-pic.jpg alt="avatar" class="border rounded m-1" />
+            <h4 class="m-1 pl-2">@ViewBag.SigninService.FirstName @ViewBag.SigninService.LastName</h4>
+        </div>
+
+        <ul style="list-style:none" class="mt-3">
+            <li>
+                <a asp-action="Index" asp-controller="Profile" asp-route-choice="question" class="dropdown-item">
+                    Vos questions
+                </a>
+            </li>
+            <li>
+                <a asp-action="Index" asp-controller="Profile" asp-route-choice="response" class="dropdown-item">
+                    Vos réponses
+                </a>
+            </li>
+        </ul>
+    </nav>
+    @if (ViewBag.Choice == "question")
+    {
+<section class="w-75 h-75">
+    @foreach (Topic topic in ViewBag.Question)
+    {
+        <div class="card ml-4 mb-4 ">
+            <div class="card-header">
+                @*@foreach(Techno techno in topic.Technos)
+                    {
+                        @techno.Name;
+                    }*@
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@topic.Question</h5>
+                <p class="card-text">@topic.Body</p>
+                <a href="#" class="btn btn-primary">Voir</a>
+            </div>
+            <div class="card-footer text-muted">
+                @topic.Author.FirstName
+                @*         @topic.Author - @topic.Date - @topic.Responses.Count() @topic.Responses.Count()>1? réponses : réponse;*@
+            </div>
+        </div>
+    }
+</section>
+    }
+</div>
+
+

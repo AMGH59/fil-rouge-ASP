@@ -14,12 +14,28 @@ namespace devTalksASP.Controllers
         {
             _signinService = signinService;
         }
-        public IActionResult Index()
+        public IActionResult Index(string choice)
         {
+
             if (_signinService.IsLogged())
             {
                 ViewBag.SigninService = _signinService;
-                return View();
+                if (choice == "question")
+                {
+                    ViewBag.Question = _signinService.GetCreatedTopics();
+                    ViewBag.Choice ="question";
+                    return View();
+                }
+                else if( choice == "response")
+                {
+                    ViewBag.Question = _signinService.GetHelpedGiven();
+                    return View();
+                }
+                else
+                {
+                    return View();
+
+                }
             }
             return RedirectToAction("Index", "Signin");
         }
