@@ -32,6 +32,8 @@ namespace devTalksASP
             services.AddHttpContextAccessor();
             services.AddSession();
             services.AddScoped<SigninService>();
+            services.AddScoped<IRepository<Message>, MessageRepository>();
+            services.AddScoped<IRepository<Topic>, TopicRepository>();
             
         }
 

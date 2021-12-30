@@ -18,7 +18,7 @@ namespace devTalksASP.Models
 
         public enum StateEnum
         {
-            Desallow,
+            Disallow,
             InProgress,
             Resolved
         }

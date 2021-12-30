@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using devTalksASP.Repositories;
 using System.Linq.Expressions;
 
-namespace devTalksWPF.Repositories
+namespace devTalksASP.Repositories
 {
     class TopicRepository : BaseRepository,IRepository<Topic>
     {
