@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 
@@ -14,42 +13,42 @@
                     <label htmlFor="firstName" class="border-dark">Prénom</label><input type="text" name="firstName" />
                     <label htmlFor="lastName" class="border-dark">Nom</label><input type="text" name="lastName" />
                     <label htmlFor="email">e-mail</label><input type="email" name="email" id="" />
-                    <label htmlFor="password-once">Mot de passe</label><input type="password" name="password" id="" />
-                    <label htmlFor="password-twice">Confirmer le mot de passe</label><input type="password" name="password-twice" id="" />
+                    <label htmlFor="password">Mot de passe</label><input type="password" name="password" minlength="8" />
+                    <label htmlFor="verifyPassword">Confirmer le mot de passe</label><input type="password" name="verifyPassword" minlength="8" />
                     <button type="submit" class="btn btn-dark mt-2">S'inscrire</button>
                 </form>
                 @if (ViewBag.CreateError != null)
                 {
                     <div class=" bg-danger p-2 mt-2 rounded text-light">@ViewBag.CreateError</div>
-
                 }
             </div>
         </div>
-    
         <div class="p-3 border-top border-bottom border-dark">
-            <div class="container bg-light p-3 rounded">
+            @if (!ViewBag.SigninService.IsLogged())
+            {
+                <div class="container bg-light p-3 rounded">
 
-                <h3> Déjà un compte ? </h3>
-                <hr />
-                <form class="form d-flex flex-column" asp-controller="Signin" asp-action="GetLoginForm">
-                    <label htmlFor="email">e-mail</label><input type="email" name="email" required="required" />
-                    <label htmlFor="password-once">Mot de passe</label><input type="password" name="pw" required="required" />
-                    <button type="submit" class="btn btn-dark mt-2">Se connecter</button>
-                </form>
-                @if (ViewBag.LoginError != null)
-                {
-                    <div class=" bg-danger p-2 mt-2 rounded text-light">@ViewBag.LoginError</div>
-
-                }
-            </div>
-
-                    @*:
-                <div class="container bg-light p-5 rounded">
-
-                    <h4>Vous n'êtes pas {this.props.name} ?</h4>
-                    <button class='btn btn-dark' onClick={() => this.handleClick()}>se déconnecter</button>
-                </div>*@
+                    <h3> Déjà un compte ? </h3>
+                    <hr />
+                    <form class="form d-flex flex-column" asp-controller="Signin" asp-action="GetLoginForm">
+                        <label htmlFor="email">e-mail</label><input type="email" name="email" required="required" />
+                        <label htmlFor="password-once">Mot de passe</label><input type="password" name="pw" required="required" />
+                        <button type="submit" class="btn btn-dark mt-2">Se connecter</button>
+                    </form>
+                    @if (ViewBag.LoginError != null)
+                    {
+                        <div class=" bg-danger p-2 mt-2 rounded text-light">@ViewBag.LoginError</div>
+                    }
                 </div>
+        }
+        else
+        {
+            <div class="container bg-light p-5 rounded">
+                <h4>Vous n'êtes pas <b>@ViewBag.SigninService.FirstName @ViewBag.SigninService.LastName</b> ?</h4>
+                <a asp-action="Logout" asp-controller="Signin" asp-route-type="reco"><button class='btn btn-dark'>Se déconnecter</button></a>
             </div>
-</div>
+        }
+        </div>
+        </div>
+    </div>
 

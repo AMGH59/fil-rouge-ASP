@@ -21,6 +21,7 @@ namespace devTalksASP.Controllers
         }
         public IActionResult Index(string loginError,string createnError)
         {
+            ViewBag.SigninService = _signinService;
             ViewBag.LoginError = loginError;
             ViewBag.CreateError = createnError;
             return View();
@@ -33,17 +34,23 @@ namespace devTalksASP.Controllers
             return RedirectToAction( "Index", "Signin", new { loginError = "Email ou mot de passe incorrect." });
         }
 
-        public IActionResult GetCreateForm(User user)
+        public IActionResult GetCreateForm(User user,string verifyPassword)
         {
-            if (!_signinService.IsExist(user.Email))
+            if (user.Password == verifyPassword)
             {
-                if (_userRepository.Save(user))
+                if (!_signinService.IsExist(user.Email))
                 {
-                    _signinService.Login(user.Email, user.Password);
-                    return RedirectToAction("Index", "Home");
+                    user.StateUser = Models.User.StateEnum.Accept;
+                    if (_userRepository.Save(user))
+                    {
+                        _signinService.Login(user.Email, user.Password);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
+                return RedirectToAction("Index", "Signin", new { createnError = "L'adresse email est déjà utilisé." });
             }
-            return RedirectToAction("Index", "Signin", new { createnError = "L'adresse email est déjà utilisé." });
+            else
+                return RedirectToAction("Index", "Signin", new { createnError = "Les mots de passe sont différents." });
         }
 
         public IActionResult Logout(string type)
