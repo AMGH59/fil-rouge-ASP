@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using devTalksASP.Repositories;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace devTalksASP.Repositories
 {
@@ -27,7 +28,7 @@ namespace devTalksASP.Repositories
 
         public IEnumerable<Topic> Search(Func<Topic, bool> predicate)
         {
-            return _dataContext.Topics.Where(m => predicate(m)).ToList();
+            return _dataContext.Topics.Include(t => t.Author).Include(t => t.Responses).Include(t => t.Technos).Where(m => predicate(m)).ToList();
         }
 
         public bool Update(Topic topic)
@@ -43,7 +44,7 @@ namespace devTalksASP.Repositories
 
         public IEnumerable<Topic> Search(Expression<Func<Topic, bool>> predicate)
         {
-            return _dataContext.Topics.Where(predicate).ToList();
+            return _dataContext.Topics.Include(t => t.Author).Include(t => t.Responses).Include(t => t.Technos).Where(predicate).ToList();
 
         }
 

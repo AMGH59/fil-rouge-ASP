@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,11 +11,10 @@ namespace devTalksASP.Models
         private int id;
         private string question;
         private string body;
-        private User author;
-        private List<Message> responses;
-        private List<Techno> technos;
+        //private List<Message> responses;
+        //private List<Techno> technos;
         private DateTime date;
-
+        public int AuthorId { get; set; }
 
         public enum StateEnum
         {
@@ -25,15 +25,16 @@ namespace devTalksASP.Models
 
         public Topic()
         {
-
         }
+
+        [ForeignKey("AuthorId")]
+        public virtual User Author { get; set; }
 
         public int Id { get => id; set => id = value; }
         public string Question { get => question; set => question = value; }
         public string Body { get => body; set => body = value; }
-        public virtual List<Message> Responses { get => responses; set => responses = value; }
-        public virtual List<Techno> Technos { get => technos; set => technos = value; }
-        public User Author { get => author; set => author = value; }
+        public virtual List<Message> Responses { get; set; }
+        public virtual List<Techno> Technos { get; set; }
         public StateEnum StateTopic { get; set; }
         public DateTime Date { get => date; set => date = value; }
     }
