@@ -67,12 +67,11 @@ namespace devTalksASP
                     pattern: "/signin",
                     defaults: "index"
                     );
-
-                // Accès rapide pour le développement
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Topic}/{action=Index}");
-
+                    name: "profile",
+                    pattern: "/profile",
+                    defaults: "index"
+                    );
             });
         }
     }

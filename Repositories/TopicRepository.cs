@@ -44,6 +44,10 @@ namespace devTalksASP.Repositories
         public IEnumerable<Topic> Search(Expression<Func<Topic, bool>> predicate)
         {
             return _dataContext.Topics.Include(t => t.Author).Include(t => t.Responses).Include(t => t.Technos).Where(predicate).ToList();
+<<<<<<< HEAD
+=======
+
+>>>>>>> profile-view
         }
 
         public Topic SearchOne(Expression<Func<Topic, bool>> searchMethode)
