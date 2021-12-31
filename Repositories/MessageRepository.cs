@@ -22,12 +22,6 @@ namespace devTalksASP.Repositories
             _dataContext.Messages.Add(message);
             return _dataContext.SaveChanges() > 0;
         }
-        public Message SaveIt(Message message)
-        {
-            _dataContext.Messages.Add(message);
-            _dataContext.SaveChanges();
-            return message;
-        }
 
         public IEnumerable<Message> Search(Func<Message, bool> predicate)
         {
@@ -55,13 +49,9 @@ namespace devTalksASP.Repositories
             throw new NotImplementedException();
         }
 
-        public List<Message> GetAll()
+        public IEnumerable<Message> GetAll()
         {
-            return _dataContext.Messages.ToList();
-        }
-        public List<Message> GetAllByTopic(int Id_topic)
-        {
-            return _dataContext.Messages.Where(m => m.Id_topic == Id_topic).ToList();
+            throw new NotImplementedException();
         }
     }
 }

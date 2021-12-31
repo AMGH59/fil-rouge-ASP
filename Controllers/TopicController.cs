@@ -21,7 +21,7 @@ namespace devTalksASP.Controllers
         }
         public IActionResult Index()
         {
-            List<Topic> topics = _topicRepository.GetAll();
+            List<Topic> topics = (List<Topic>)_topicRepository.GetAll();
             return View("Index", topics);
         }
         public IActionResult SubmitSearch(string searchNavbar)
@@ -32,30 +32,30 @@ namespace devTalksASP.Controllers
 
         public IActionResult NewTopicForm()
         {
-            List<Techno> technos = _technoRepository.GetAll();
+            List<Techno> technos = (List<Techno>)_technoRepository.GetAll();
             return View("NewTopicForm", technos);
         }
         public IActionResult SubmitNewTopic(Topic topic, int authorId)
         {
             topic.Author = _userRepository.FinById(authorId);
-            _topicRepository.SaveIt(topic);
+            _topicRepository.Save(topic);
             return RedirectToAction("Index");
         }
 
         public IActionResult Detail(int id)
         {
             Topic topic = _topicRepository.FinById(id);
-            List<Message> responses = _messageRepository.GetAllByTopic(id);
+            //List<Message> responses = _messageRepository.GetAllByTopic(id);
             TopicMessageViewModel tmvm = new TopicMessageViewModel();
             tmvm.Topic = topic;
-            tmvm.Messages = responses;
+            //tmvm.Messages = responses;
             return View(tmvm);
         }
         public IActionResult SubmitAnswer(Message answer, int Id_user, int Id_topic)
         {
             answer.Id_user = _userRepository.FinById(Id_user).Id;
             answer.Id_topic = _topicRepository.FinById(Id_topic).Id;
-            _messageRepository.SaveIt(answer);
+            _messageRepository.Save(answer);
             return RedirectToAction("Index");
         }
     }

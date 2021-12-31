@@ -18,12 +18,7 @@ namespace devTalksASP.Repositories
             return _dataContext.Users.Find(id);
         }
 
-        public List<User> GetAll()
-        {
-            return _dataContext.Users.ToList();
-        }
-
-        public List<User> GetAllByTopic(int Id_topic)
+        public IEnumerable<User> GetAll()
         {
             throw new NotImplementedException();
         }
@@ -32,12 +27,6 @@ namespace devTalksASP.Repositories
         {
             _dataContext.Users.Add(user);
             return _dataContext.SaveChanges() > 0;
-        }
-        public User SaveIt(User user)
-        {
-            _dataContext.Users.Add(user);
-            _dataContext.SaveChanges();
-            return user;
         }
 
         public IEnumerable<User> Search(Func<User, bool> predicate)

@@ -30,7 +30,7 @@ namespace devTalksASP.Controllers
         public IActionResult GetLoginForm(string email,string pw)
         {
             if (_signinService.Login(email, pw))
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index","Topic");
             return RedirectToAction( "Index", "Signin", new { loginError = "Email ou mot de passe incorrect." });
         }
 

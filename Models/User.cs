@@ -19,8 +19,6 @@ namespace devTalksASP.Models
 
         public User()
         {
-            Topics = new List<Topic>();
-            Messages = new List<Message>();
         }
 
         public int Id { get => id; set => id = value; }
@@ -31,8 +29,6 @@ namespace devTalksASP.Models
         public StateEnum StateUser { get; set; }
         public bool IsAdmin { get => isAdmin; set => isAdmin = value; }
         public bool IsLogged { get => isLogged; set => isLogged = value; }
-        public virtual List<Topic> Topics { get; set; }
-        public virtual List<Message> Messages { get; set; }
     }
 }
 

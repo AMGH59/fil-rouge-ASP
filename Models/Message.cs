@@ -11,8 +11,8 @@ namespace devTalksASP.Models
         private int id;
         private string body;
         private DateTime date;
-        private int id_topic;
-        private int id_user;
+        public int Id_topic { get; set; }
+        public int Id_user { get; set; }
 
 
         [ForeignKey("Id_topic")]
@@ -32,8 +32,6 @@ namespace devTalksASP.Models
             Date = DateTime.Now;
         }
         public int Id { get => id; set => id = value; }
-        public int Id_topic { get => id_topic; set => id_topic = value; }
-        public int Id_user { get => id_user; set => id_user = value; }
         public string Body { get => body; set => body = value; }
         public DateTime Date { get => date; set => date = value; }
         public StateMessageEnum StateMessage { get; set; }

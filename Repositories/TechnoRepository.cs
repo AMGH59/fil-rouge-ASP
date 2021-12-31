@@ -16,16 +16,16 @@ namespace devTalksASP.Repositories
         {
             return _dataContext.Technos.Find(id);
         }
+
+        public IEnumerable<Techno> GetAll()
+        {
+            return _dataContext.Technos.ToList();
+        }
+
         public bool Save(Techno techno)
         {
             _dataContext.Technos.Add(techno);
             return _dataContext.SaveChanges() > 0;
-        }
-        public Techno SaveIt(Techno techno)
-        {
-            _dataContext.Technos.Add(techno);
-            _dataContext.SaveChanges();
-            return techno;
         }
 
         public IEnumerable<Techno> Search(Func<Techno, bool> predicate)
@@ -47,15 +47,6 @@ namespace devTalksASP.Repositories
         {
             return _dataContext.SaveChanges() > 0;
 
-        }
-        public List<Techno> GetAll()
-        {
-            return _dataContext.Technos.ToList();
-        }
-
-        public List<Techno> GetAllByTopic(int Id_topic)
-        {
-            throw new NotImplementedException();
         }
     }
 }
