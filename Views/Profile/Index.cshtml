@@ -42,10 +42,10 @@
                         <a href="#" class="btn btn-primary">Voir</a>
                     </div>
                     <div class="card-footer text-muted">
-                        @topic.Author - @topic.Date - @if (@topic.Responses.Count() > 1)
+                        @topic.Author.FirstName @topic.Author.LastName - @topic.Date - @if (@topic.Responses.Count() > 1)
                         {<span>@topic.Responses.Count() réponses.</span>}
-                        else
-                        {<span>@topic.Responses.Count() réponse.</span>}
+                    else
+                    {<span>@topic.Responses.Count() réponse.</span>}
                     </div>
                 </div>
             }
@@ -72,8 +72,8 @@
                         @message.user.FirstName - @message.Date
                     </div>
                 </div>
-            }*@
-        }
+            }
+        }*@
     </section>
 
 </div>
