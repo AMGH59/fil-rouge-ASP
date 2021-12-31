@@ -29,6 +29,7 @@ namespace devTalksASP.Controllers
                 else if( choice == "response")
                 {
                     ViewBag.Question = _signinService.GetHelpedGiven();
+                    ViewBag.Choice = "response";
                     return View();
                 }
                 else

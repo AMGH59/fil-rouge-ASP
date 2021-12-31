@@ -42,7 +42,8 @@ namespace devTalksASP.Repositories
 
         public IEnumerable<Message> Search(Expression<Func<Message, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _dataContext.Messages.Where(predicate).ToList();
+
         }
 
         public Message SearchOne(Expression<Func<Message, bool>> searchMethode)
