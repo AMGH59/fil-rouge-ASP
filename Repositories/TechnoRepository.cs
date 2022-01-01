@@ -35,7 +35,7 @@ namespace devTalksASP.Repositories
 
         public IEnumerable<Techno> Search(Expression<Func<Techno, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _dataContext.Technos.Where(predicate).ToList();
         }
 
         public Techno SearchOne(Expression<Func<Techno, bool>> searchMethode)

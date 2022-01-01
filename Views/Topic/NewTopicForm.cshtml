@@ -3,8 +3,8 @@
 <section>
     <div class="justify-content-center">
         <h2 class="text-center p-2"></h2>
-        <form asp-controller="Topic" asp-action="SubmitNewTopic" asp-route-authorId="AuthorId" method="post">
-            <input type="hidden" name="AuthorId" value="1"/>
+        <form asp-controller="Topic" asp-action="SubmitNewTopic" asp-route-technos="Technos"  method="post">
+            <input type="hidden" name="AuthorId" value=@ViewBag.CurrentUser/>
 
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon">Question</span>
@@ -12,13 +12,22 @@
             </div>
             <div class="input-group mb-3">
                 <label class="input-group-text" for="inputGroupSelectTechno">Techno</label>
-                <select class="form-select" id="inputGroupSelectTechno">
-                    <option selected>Choose...</option>
-                    @foreach(Techno tech in Model)
-                    {
-                    <option name="" value="@tech.Id">@tech.Name</option>
-                    }
-                </select>
+                @*<select name="Technos" class="form-select" id="inputGroupSelectTechno">
+            <option selected>Choose...</option>
+            @foreach(Techno tech in Model)
+            {
+            <option name="" value="@tech.Id">@tech.Name</option>
+            }
+        </select>*@
+            <div class="form-check form-check-inline">
+                @foreach (Techno tech in Model)
+                {
+                    <input name="technos" class="form-check-input ml-2" type="checkbox" id=@tech.Name value=@tech.Id>
+                    <label class="form-check-label mr-2" for=@tech.Name>@tech.Name</label>
+                }
+
+            </div>
+                @*  *@
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">Détails de la question</span>

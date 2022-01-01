@@ -10,7 +10,7 @@ namespace devTalksASP.Models
         private int id;
         private string description;
         private string name;
-        private List<Topic> topics;
+        //private List<Topic> topics;
         private Techno()
         {
 
@@ -18,7 +18,7 @@ namespace devTalksASP.Models
         public int Id { get => id; set => id = value; }
         public string Description { get => description; set => description = value; }
         public string Name { get => name; set => name = value; }
-        public virtual List<Topic> Topics { get => topics; set => topics = value; }
+        public virtual List<Topic> Topics { get; set; }
     }
 }
 

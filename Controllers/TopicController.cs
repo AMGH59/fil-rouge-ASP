@@ -39,12 +39,14 @@ namespace devTalksASP.Controllers
         public IActionResult NewTopicForm()
         {
             List<Techno> technos = (List<Techno>)_technoRepository.GetAll();
+            ViewBag.CurrentUser = _accessor.HttpContext.Session.GetInt32("id");
             return View("NewTopicForm", technos);
         }
-        public IActionResult SubmitNewTopic(Topic topic)
+        public IActionResult SubmitNewTopic(Topic topic,List<int> technos)
         {
             int authorId=(int)_accessor.HttpContext.Session.GetInt32("id");
             topic.Author = _userRepository.FinById(authorId);
+            topic.Technos = (List<Techno>)_technoRepository.Search(tech => technos.Contains(tech.Id));
             _topicRepository.Save(topic);
             return RedirectToAction("Index");
         }
