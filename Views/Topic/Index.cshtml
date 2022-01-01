@@ -28,11 +28,12 @@
                         </div>
                         <div>@t.Body</div>
                         <div>
+                                @if (t.Responses.Count() > 1)
+                                {<div>@t.Responses.Count() answers.</div>}
+                            else
+                            {<div>@t.Responses.Count() answer.</div>}
                             <div>
-                                @t.Responses.Count answers
-                            </div>
-                            <div>
-                                posted by @t.Author at @t.Date
+                                posted by @t.Author.FirstName @t.Author.LastName at @t.Date
                             </div>
                         </div>
                     </div>

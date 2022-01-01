@@ -16,9 +16,9 @@ namespace devTalksASP.Models
 
 
         [ForeignKey("Id_topic")]
-        public virtual Topic topic { get; set; }
+        public virtual Topic Topic { get; set; }
         [ForeignKey("Id_user")]
-        public virtual User user { get; set; }
+        public virtual User User { get; set; }
 
 
         public enum StateMessageEnum
@@ -30,6 +30,7 @@ namespace devTalksASP.Models
         public Message()
         {
             Date = DateTime.Now;
+            StateMessage = StateMessageEnum.Accept;
         }
         public int Id { get => id; set => id = value; }
         public string Body { get => body; set => body = value; }

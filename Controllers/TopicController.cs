@@ -3,6 +3,8 @@ using devTalksASP.Models;
 using devTalksASP.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+
 
 namespace devTalksASP.Controllers
 {
@@ -12,12 +14,16 @@ namespace devTalksASP.Controllers
         IRepository<Techno> _technoRepository;
         IRepository<User> _userRepository;
         IRepository<Message> _messageRepository;
-        public TopicController(IRepository<Topic> topicRepository, IRepository<Techno> technoRepository, IRepository<User> userRepository, IRepository<Message> messageRepository)
+        private IHttpContextAccessor _accessor;
+
+        public TopicController(IRepository<Topic> topicRepository, IRepository<Techno> technoRepository, IRepository<User> userRepository, IRepository<Message> messageRepository, IHttpContextAccessor accessor)
         {
             _topicRepository = topicRepository;
             _technoRepository = technoRepository;
             _messageRepository = messageRepository;
             _userRepository = userRepository;
+            _accessor = accessor;
+
         }
         public IActionResult Index()
         {
@@ -35,8 +41,9 @@ namespace devTalksASP.Controllers
             List<Techno> technos = (List<Techno>)_technoRepository.GetAll();
             return View("NewTopicForm", technos);
         }
-        public IActionResult SubmitNewTopic(Topic topic, int authorId)
+        public IActionResult SubmitNewTopic(Topic topic)
         {
+            int authorId=(int)_accessor.HttpContext.Session.GetInt32("id");
             topic.Author = _userRepository.FinById(authorId);
             _topicRepository.Save(topic);
             return RedirectToAction("Index");
@@ -49,12 +56,13 @@ namespace devTalksASP.Controllers
             TopicMessageViewModel tmvm = new TopicMessageViewModel();
             tmvm.Topic = topic;
             //tmvm.Messages = responses;
+            ViewBag.CurrentUser = _accessor.HttpContext.Session.GetInt32("id");
             return View(tmvm);
         }
-        public IActionResult SubmitAnswer(Message answer, int Id_user, int Id_topic)
+        public IActionResult SubmitAnswer(Message answer, int Id_topic, int Id_user)
         {
-            answer.Id_user = _userRepository.FinById(Id_user).Id;
-            answer.Id_topic = _topicRepository.FinById(Id_topic).Id;
+            answer.User= _userRepository.FinById(Id_user);
+            answer.Topic = _topicRepository.FinById(Id_topic);
             _messageRepository.Save(answer);
             return RedirectToAction("Index");
         }

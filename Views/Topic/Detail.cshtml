@@ -26,7 +26,7 @@
                     @answer.Body
                 </div>
                 <div>
-                    réponse postée par @answer.Id_user le @answer.Date
+                    réponse postée par @answer.User.FirstName @answer.User.LastName  le @answer.Date
                 </div>
             </div>
         }
@@ -37,7 +37,7 @@
     <h4>Votre réponse</h4>
     <form asp-controller="Topic" asp-action="SubmitAnswer" method="post" asp-route-Id_topic="Id" asp-route-Id_user="Id_user">
         <input type="hidden" name="Id_topic" value="@Model.Topic.Id" />
-        <input type="hidden" name="Id_user" value="1" />
+        <input type="hidden" name="Id_user" value=@ViewBag.CurrentUser />
 
         <div class="input-group mb-3">
             <textarea name="Body" class="form-control" style="height : 300px" placeholder="Ecrivez votre réponse ici..."></textarea>
