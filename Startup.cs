@@ -35,6 +35,8 @@ namespace devTalksASP
             services.AddScoped<IRepository<Message>, MessageRepository>();
             services.AddScoped<IRepository<Topic>, TopicRepository>();
             services.AddScoped<IRepository<Techno>, TechnoRepository>();
+            services.AddTransient<StateManagementService>();
+            services.AddScoped<TopicService>();
             
         }
 

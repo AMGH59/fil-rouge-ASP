@@ -137,6 +137,9 @@ namespace devTalksASP.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("StateUser")
                         .HasColumnType("int");
 
@@ -162,21 +165,21 @@ namespace devTalksASP.Migrations
 
             modelBuilder.Entity("devTalksASP.Models.Message", b =>
                 {
-                    b.HasOne("devTalksASP.Models.Topic", "topic")
+                    b.HasOne("devTalksASP.Models.Topic", "Topic")
                         .WithMany("Responses")
                         .HasForeignKey("Id_topic")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("devTalksASP.Models.User", "user")
+                    b.HasOne("devTalksASP.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("Id_user")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("topic");
+                    b.Navigation("Topic");
 
-                    b.Navigation("user");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("devTalksASP.Models.Topic", b =>

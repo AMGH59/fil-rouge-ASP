@@ -57,6 +57,7 @@ namespace devTalksASP.Services
             if(t != null)
             {
                 t.StateTopic = Topic.StateEnum.Resolved;
+                _topicRepository.Update(t);
                 return true;
             }
             return false;

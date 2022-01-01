@@ -65,7 +65,7 @@
                                         </a>
                                     </li>
                                     <div class="pr-2 pl-2 border-top mt-2">
-                                    <li><small>Vous n'êtes pas <br><b>@_signinService.FirstName @_signinService.LastName</b> ?</small></li>
+                                    <li><small>Vous n'êtes pas <br><b>@_signinService.CurrentUser.FirstName @_signinService.CurrentUser.LastName</b> ?</small></li>
                                     <li class='small'>
                                         <a asp-action="Logout" asp-controller="Signin" asp-route-type="reco">
                                             changer d'utilsateur

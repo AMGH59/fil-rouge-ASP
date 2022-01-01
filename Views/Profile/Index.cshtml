@@ -7,73 +7,113 @@
     <nav class="bg-light flex-column overflow-auto shadow-sm " style="min-height: 78vh; width:250px">
         <div class="d-flex align-items-center border-bottom m-2 pb-2">
             <img src=~/img/user-pic.jpg alt="avatar" class="border rounded m-1" />
-            <h4 class="m-1 pl-2">@ViewBag.SigninService.FirstName @ViewBag.SigninService.LastName</h4>
+            <h4 class="m-1 pl-2">@ViewBag.SigninService.CurrentUser.FirstName @ViewBag.SigninService.CurrentUser.LastName</h4>
         </div>
 
         <ul style="list-style:none" class="mt-3">
+            @if (@ViewBag.nTopics > 1)
+            {
+                <li>
+                    Sujets créés : @ViewBag.nTopics
+                </li>
+            }
+            else
+            {
+                <li>
+                    Sujet créé : @ViewBag.nTopics
+                </li>
+            }
+
             <li>
-                <a asp-action="Index" asp-controller="Profile" asp-route-choice="question" class="dropdown-item">
-                    Vos questions
-                </a>
-            </li>
-            <li>
-                <a asp-action="Index" asp-controller="Profile" asp-route-choice="response" class="dropdown-item">
-                    Vos réponses
-                </a>
+                Date d'inscription : @ViewBag.SigninService.CurrentUser.RegistrationDate
             </li>
         </ul>
     </nav>
     <section class="w-75 h-75">
-
-        @if (ViewBag.Choice == "question")
+        @if (ViewBag.nTopics == 0)
         {
-            @foreach (Topic topic in ViewBag.Question)
-            {
-                <div class="card ml-4 mb-4 ">
-                    <div class="card-header">
-                        @foreach (Techno techno in topic.Technos)
-                        {
-                            @techno.Name;
-                        }
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">@topic.Question</h5>
-                        <p class="card-text">@topic.Body</p>
-                        <a href="#" class="btn btn-primary">Voir</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        @topic.Author.FirstName @topic.Author.LastName - @topic.Date - @if (@topic.Responses.Count() > 1)
-                        {<span>@topic.Responses.Count() réponses.</span>}
-                    else
-                    {<span>@topic.Responses.Count() réponse.</span>}
-                    </div>
-                </div>
-            }
+        <div class="d-flex flex-column ml-5 mt-2">
+            <h2>Cette section est vide.</h2>
+            <div class="text-justify ">
+                <a class="btn btn-info" asp-controller="Topic" asp-action="NewTopicForm">Ouvrir un nouveau sujet</a>
+            </div>
+        </div>
         }
-        @*else if (ViewBag.Choice == "response")
+        else
         {
-            @foreach (Message message in ViewBag.Response)
-            {
-                <div class="card ml-4 mb-4 ">
-                    <div class="card-header">
-                        @foreach (Techno techno in message.topic.Technos)
-                        {
-                            @techno.Name;
-                        }
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            @message.topic.Question;
-                        </h5>
-                        <p class="card-text">@message.Body</p>
-                        <a href="#" class="btn btn-primary">Voir</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        @message.user.FirstName - @message.Date
+        <div class="ml-5 mt-2">
+            <h2>Liste de vos sujets.</h2>
+            <div class="d-flex align-items-center">
+                <p>Trier par état d'avancement : </p>
+                <a class="btn btn-info m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="1">
+                    Ouvert
+                </a>
+                <a class="btn btn-success m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="2">
+                    Résolu
+                </a>
+                <a class="btn btn-danger m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="3">
+                    Fermé
+                </a>
+            </div>
+        </div>
+        }
+        @if (ViewBag.Message != null)
+        {
+            <div class=@ViewBag.ClassMessage>@ViewBag.Message</div>
+        }
+        @foreach (Topic topic in ViewBag.Topics)
+        {
+            <div class=" ml-4 mb-4 ">
+                @if (topic.StateTopic == Topic.StateEnum.Resolved)
+                {
+                    <span class="badge badge-success">Resolu</span>
+
+                }
+                else if (topic.StateTopic == Topic.StateEnum.Disallow)
+                {
+                    <span class="badge badge-danger">Supprimé</span>
+
+                }
+                else
+                {
+                    <span class="badge badge-info">Ouvert</span>
+
+                }
+
+                <div class="card">
+                    <div class="bg-light">
+                        <div class="card-body">
+                            <p class="card-title mb-0">
+                                <a asp-action="Detail" asp-controller="Topic" asp-route-id=@topic.Id>
+                                    @topic.Question
+                                </a>
+                            </p>
+                        </div>
+                        <div class="d-flex">
+                            @if (topic.StateTopic == Topic.StateEnum.InProgress)
+                            {
+                                <a class="btn btn-secondary mt-0 mb-2 ml-2" asp-action="CloseTopic" asp-controller="Profile" asp-route-id=@topic.Id>
+                                    Clôturer
+                                </a>
+                            }
+                        </div>
                     </div>
                 </div>
-            }
-        }*@
+                @foreach (Techno techno in topic.Technos)
+                {
+                    <span class="badge badge-secondary">@techno.Name</span>
+                }
+
+                <span class="badge badge-info">
+                    @if (@topic.Responses.Count() > 1)
+                    {<span>Réponses</span>}
+                    else
+                    { <span>Réponse</span>} <span class="badge badge-light">@topic.Responses.Count()</span>
+                </span>
+            </div>
+        }
+
+
     </section>
 
 </div>

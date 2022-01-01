@@ -10,6 +10,7 @@ namespace devTalksASP.Models
         private int id;
         private string firstName, lastName, email, password;
         private bool isAdmin, isLogged;
+        private DateTime registrationDate;
         public enum StateEnum
         {
             Waiting,
@@ -19,6 +20,7 @@ namespace devTalksASP.Models
 
         public User()
         {
+            registrationDate = DateTime.Now;
         }
 
         public int Id { get => id; set => id = value; }
@@ -29,6 +31,7 @@ namespace devTalksASP.Models
         public StateEnum StateUser { get; set; }
         public bool IsAdmin { get => isAdmin; set => isAdmin = value; }
         public bool IsLogged { get => isLogged; set => isLogged = value; }
+        public DateTime RegistrationDate { get => registrationDate; set => registrationDate = value; }
     }
 }
 

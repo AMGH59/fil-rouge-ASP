@@ -14,9 +14,8 @@ namespace devTalksASP.Services
         private IHttpContextAccessor _accessor;
         private IRepository<Topic> _topicRepository;
         private IRepository<Message> _messageRepository;
-        public string FirstName { get => _accessor.HttpContext.Session.GetString("firstname"); }
-        public string LastName { get => _accessor.HttpContext.Session.GetString("lastname"); }
-        public int? UserId { get => _accessor.HttpContext.Session.GetInt32("id"); }
+        private int? UserId { get => _accessor.HttpContext.Session.GetInt32("id"); }
+        public User CurrentUser { get => _userRepository.FinById((int)UserId); }
 
 
         public SigninService(IRepository<User> userRepository, IHttpContextAccessor accessor, IRepository<Topic> topicRepository, IRepository<Message> messageRepository)
@@ -76,12 +75,6 @@ namespace devTalksASP.Services
             topics = _topicRepository.Search(t => t.Author.Id == UserId).ToList();
             return topics;
         }
-        public IEnumerable<Message> GetHelpedGiven()
-        {
-            IEnumerable<Message> messages = default(IEnumerable<Message>);
-            return messages;
-        }
-
 
     }
 }
