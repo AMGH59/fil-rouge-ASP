@@ -61,10 +61,16 @@ namespace devTalksASP.Controllers
         {
             if (_stateManagementService.CloseTopic(id))
             {
-                return RedirectToAction("Index", "Profile", new { message = "Vous avez clos le sujet.", classMessage= " bg-success p-2 mt-2 rounded text-light" });
+                return RedirectToAction("Index", "Profile");
             }
-            return RedirectToAction("Index", "Profile", new { message = "Le sujet n'a pas été clos.", classMessage = " bg-danger p-2 mt-2 rounded text-light" });
+            return RedirectToAction("Index", "Profile" );
         }
 
+        public IActionResult GetReportButton(int id)
+        {
+            _stateManagementService.ReportUser(id);
+            return RedirectToAction("Index", "Profile", new { userId = id });
+
+        }
     }
 }

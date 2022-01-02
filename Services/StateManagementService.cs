@@ -27,6 +27,7 @@ namespace devTalksASP.Services
             if (u != null)
             {
                 u.StateUser = User.StateEnum.Waiting;
+                _userRepository.Update(u);
                 return true;
             }
             return false;
@@ -37,6 +38,7 @@ namespace devTalksASP.Services
             if(m != null)
             {
                 m.StateMessage = Message.StateMessageEnum.Reported;
+                _messageRepository.Update(m);
                 return true;
             }
             return false;
@@ -47,6 +49,7 @@ namespace devTalksASP.Services
             if (t != null)
             {
                 t.StateTopic = Topic.StateEnum.Disallow;
+                _topicRepository.Update(t);
                 return true;
             }
             return false;

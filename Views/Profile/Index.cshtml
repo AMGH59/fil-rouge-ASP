@@ -30,7 +30,7 @@
         </ul>
         @if (@ViewBag.CurrentUser.Id != @ViewBag.User.Id)
         {
-            <a class="btn btn-dark m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="1">Signaler</a>
+            <a class="btn btn-dark m-2" asp-action="GetReportButton" asp-controller="Profile" asp-route-id=@ViewBag.User.Id>Signaler</a>
 
         }
     </nav>
@@ -57,13 +57,13 @@
         }
         <div class="d-flex align-items-center">
             <p>Trier par état d'avancement : </p>
-            <a class="btn btn-info m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="1">
+            <a class="btn btn-info m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="1" asp-route-userId=@ViewBag.User.Id>
                 Ouvert
             </a>
-            <a class="btn btn-success m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="2">
+            <a class="btn btn-success m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="2"  asp-route-userId=@ViewBag.User.Id>
                 Résolu
             </a>
-            <a class="btn btn-danger m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="3">
+            <a class="btn btn-danger m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="3"  asp-route-userId=@ViewBag.User.Id>
                 Fermé
             </a>
         </div>
