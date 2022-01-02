@@ -19,22 +19,25 @@ namespace devTalksASP.Services
 
         }
 
-        public IEnumerable<Topic> GetTopicsInProgress()
+        public IEnumerable<Topic> GetTopicsInProgress(int id)
         {
-            IEnumerable<Topic> topics = default(IEnumerable<Topic>);
-            topics=_topicRepository.Search(t => t.AuthorId == _signinService.CurrentUser.Id && t.StateTopic == Topic.StateEnum.InProgress);
+            id = id == 0 ? _signinService.CurrentUser.Id : id;
+            IEnumerable <Topic> topics = default(IEnumerable<Topic>);
+            topics=_topicRepository.Search(t => t.AuthorId == id && t.StateTopic == Topic.StateEnum.InProgress);
             return topics;
         }
-        public IEnumerable<Topic> GetTopicsDisallowed()
+        public IEnumerable<Topic> GetTopicsDisallowed(int id)
         {
+            id = id == 0 ? _signinService.CurrentUser.Id : id;
             IEnumerable<Topic> topics = default(IEnumerable<Topic>);
-            topics = _topicRepository.Search(t => t.AuthorId == _signinService.CurrentUser.Id && t.StateTopic == Topic.StateEnum.Disallow);
+            topics = _topicRepository.Search(t => t.AuthorId == id && t.StateTopic == Topic.StateEnum.Disallow);
             return topics;
         }
-        public IEnumerable<Topic> GetTopicsInResolved()
+        public IEnumerable<Topic> GetTopicsInResolved(int id)
         {
+            id = id == 0 ? _signinService.CurrentUser.Id : id;
             IEnumerable<Topic> topics = default(IEnumerable<Topic>);
-            topics = _topicRepository.Search(t => t.AuthorId == _signinService.CurrentUser.Id && t.StateTopic == Topic.StateEnum.Resolved);
+            topics = _topicRepository.Search(t => t.AuthorId == id && t.StateTopic == Topic.StateEnum.Resolved);
             return topics;
         }
     }

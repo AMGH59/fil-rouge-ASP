@@ -14,7 +14,7 @@ namespace devTalksASP.Services
         private IHttpContextAccessor _accessor;
         private IRepository<Topic> _topicRepository;
         private IRepository<Message> _messageRepository;
-        private int? UserId { get => _accessor.HttpContext.Session.GetInt32("id"); }
+        public int? UserId { get => _accessor.HttpContext.Session.GetInt32("id"); }
         public User CurrentUser { get => _userRepository.FinById((int)UserId); }
 
 
@@ -69,11 +69,18 @@ namespace devTalksASP.Services
             return false;
         }
 
-        public IEnumerable<Topic> GetCreatedTopics()
+        public IEnumerable<Topic> GetCreatedTopics(int id)
         {
-            IEnumerable<Topic> topics = default(IEnumerable<Topic>);
-            topics = _topicRepository.Search(t => t.Author.Id == UserId).ToList();
+            id = id == 0 ? (int)UserId : id;
+            IEnumerable <Topic> topics = default(IEnumerable<Topic>);
+            topics = _topicRepository.Search(t => t.Author.Id == id).ToList();
             return topics;
+        }
+
+        public User GetUser(int id)
+        {
+            id = id == 0 ? (int)UserId : id;
+            return _userRepository.FinById(id);
         }
 
     }

@@ -12,7 +12,9 @@
         @Model.Topic.Body
     </div>
     <div class="mb-5">
-        de @Model.Topic.Author.FirstName @Model.Topic.Author.LastName postée le @Model.Topic.Date
+        de <a asp-action="Index" asp-controller="Profile" asp-route-userId=@Model.Topic.Author.Id >
+            @Model.Topic.Author.FirstName @Model.Topic.Author.LastName
+        </a> postée le @Model.Topic.Date
     </div>
 </section>
 
@@ -30,7 +32,7 @@
                 </div>
             </div>
             <a asp-action="GetReportButton" asp-controller="Topic" asp-route-user_id=@answer.Id asp-route-topic_id=@Model.Topic.Id>Signaler</a>
-        }ans
+        }
     </div>
 </section>
 

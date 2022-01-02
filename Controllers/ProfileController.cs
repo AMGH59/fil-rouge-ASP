@@ -19,35 +19,40 @@ namespace devTalksASP.Controllers
             _stateManagementService = stateManagementService;
             _topicService = topicService;
         }
-        public IActionResult Index(string choice, string message,string classMessage)
+        public IActionResult Index(string choice, string message,string classMessage, int userId)
         {
-
             if (_signinService.IsLogged())
             {
                 ViewBag.Message = message;
                 ViewBag.ClassMessage = classMessage;
-                ViewBag.SigninService = _signinService;
-                switch (choice)
+                ViewBag.CurrentUser = _signinService.CurrentUser;
+                ViewBag.User = _signinService.GetUser(userId);
+                if(choice != null)
                 {
-                    case "1":
-                        ViewBag.Topics = _topicService.GetTopicsInProgress();
-                        ViewBag.nTopics = _signinService.GetCreatedTopics().Count();
-                        break;
-                    case "2":
-                        ViewBag.Topics = _topicService.GetTopicsInResolved();
-                        ViewBag.nTopics = _signinService.GetCreatedTopics().Count();
-                        break;
-                    case "3":
-                        ViewBag.Topics = _topicService.GetTopicsDisallowed();
-                        ViewBag.nTopics = _signinService.GetCreatedTopics().Count();
-                        break;
-                    default:
-                        ViewBag.Topics = _signinService.GetCreatedTopics();
-                        ViewBag.nTopics = _signinService.GetCreatedTopics().Count();
-                        break;
+                    switch (choice)
+                    {
+                        case "1":
+                            ViewBag.Topics = _topicService.GetTopicsInProgress(userId);
+                            ViewBag.nTopics = _signinService.GetCreatedTopics(userId).Count();
+                            break;
+                        case "2":
+                            ViewBag.Topics = _topicService.GetTopicsInResolved(userId);
+                            ViewBag.nTopics = _signinService.GetCreatedTopics(userId).Count();
+                            break;
+                        case "3":
+                            ViewBag.Topics = _topicService.GetTopicsDisallowed(userId);
+                            ViewBag.nTopics = _signinService.GetCreatedTopics(userId).Count();
+                            break;
+                        default:
+                            ViewBag.Topics = _signinService.GetCreatedTopics(userId);
+                            ViewBag.nTopics = _signinService.GetCreatedTopics(userId).Count();
+                            break;
+                    }
+                    return View();
                 }
+                ViewBag.Topics = _signinService.GetCreatedTopics(userId);
+                ViewBag.nTopics = _signinService.GetCreatedTopics(userId).Count();
                 return View();
-
             }
             return RedirectToAction("Index", "Signin");
         }
