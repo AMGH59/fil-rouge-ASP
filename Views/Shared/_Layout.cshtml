@@ -1,5 +1,5 @@
 ﻿@inject SigninService _signinService
-
+@inject NavService _navService
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,18 +14,6 @@
 </head>
 <body>
     <header>
-        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" id="scrollmenu">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                        <img src=~/img/devtalks-logo-rsz.png alt="devtalks-logo" class="devtalk-logo" />
-                    </a>
-                </a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>*@
-        @*<div class="d-flex  justify-content-end">*@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 @if (!_signinService.IsLogged())
@@ -37,13 +25,6 @@
                     <div class="d-flex  justify-content-end">
 
                         <ul class="navbar-nav flex-grow-1">
-
-                            @*<li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Signin" asp-action="Index">Se connecter</a>
-                    </li>
-                    <li class="nav-item">
-                     <a class="nav-link text-dark" asp-area="" asp-controller="Signin" asp-action="Index">Créer un compte</a>
-                    </li>*@
                         </ul>
                     </div>
 
@@ -79,25 +60,86 @@
                     </ul>
                 </div>
 
-                }
-            </div>
-        </nav>
-    </header>
-    <div class="container">
+            }
+                </div>
+            </nav>
+        </header>
         <main role="main" class="pb-3">
-            @RenderBody()
+            <div class="container d-flex ">
+
+                    @if (_navService.PathValue == "/Profile")
+                    {
+                        <nav class="bg-light flex-column shadow-sm m-4 col-3" style="min-height: 78vh;">
+
+                            <div class="d-flex align-items-center border-bottom m-2 pb-2">
+                                <img src=~/img/user-pic.jpg alt="avatar" class="border rounded m-1" />
+                                <h4 class="m-1 pl-2">@ViewBag.User.FirstName @ViewBag.User.FirstName</h4>
+                            </div>
+
+                            <ul style="list-style:none" class="mt-3">
+                                @if (@ViewBag.nTopics > 1)
+                                {
+                                    <li>
+                                        Sujets créés : @ViewBag.nTopics
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        Sujet créé : @ViewBag.nTopics
+                                    </li>
+                                }
+
+                                <li>
+                                    Date d'inscription : @ViewBag.User.RegistrationDate
+                                </li>
+                            </ul>
+
+                            @if (@ViewBag.CurrentUser.Id != @ViewBag.User.Id)
+                            {
+                                <a class="btn btn-dark" asp-action="GetReportButton" asp-controller="Profile" asp-route-id=@ViewBag.User.Id>Signaler</a>
+                            }
+                        </nav>
+
+                    }
+                    else if (!(_navService.PathValue == "/" && !_signinService.IsLogged()) && _navService.PathValue != "/Signin")
+                    {
+                        <nav class="bg-light flex-column shadow-sm m-4 col-3" style="min-height: 78vh;">
+
+                            <div class="d-flex align-items-center border-bottom m-2 pb-2">
+                                <h4 class="mr-3 mt-1">Affichage</h4>
+                            </div>
+
+                            <ul style="list-style:none" class="mt-3">
+                                <li>
+                                    <a asp-action="Index" asp-controller="Topic" class="dropdown-item">
+                                        Topic
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-action="Index" asp-controller="Profile" asp-route-choice="response" class="dropdown-item">
+                                        Techno
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    }
+
+
+                    @RenderBody()
+</div>
         </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Projet de formation .Net
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2021 - Projet de formation .Net
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
+        @await RenderSectionAsync("Scripts", required: false)
+    </body>
 </html>

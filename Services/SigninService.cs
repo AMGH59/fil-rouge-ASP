@@ -16,7 +16,7 @@ namespace devTalksASP.Services
         private IRepository<Message> _messageRepository;
         public int? UserId { get => _accessor.HttpContext.Session.GetInt32("id"); }
         public User CurrentUser { get => _userRepository.FinById((int)UserId); }
-
+       
 
         public SigninService(IRepository<User> userRepository, IHttpContextAccessor accessor, IRepository<Topic> topicRepository, IRepository<Message> messageRepository)
         {
@@ -28,6 +28,7 @@ namespace devTalksASP.Services
 
         public bool Login(string email,string pw)
         {
+            Endpoint e = _accessor.HttpContext.GetEndpoint();
             User u = _userRepository.SearchOne(u => u.Email == email && u.Password == pw);
             if (u != null)
             {

@@ -1,53 +1,55 @@
 ﻿@model TopicMessageViewModel
 
-<section>
-    @if (Model.Topic.Id > 0)
-    {
-        <input type="hidden" name="id" value="@Model.Topic.Id" />
-    }
-    <div>
-        <h1>@Model.Topic.Question</h1>
-    </div>
-    <div>
-        @Model.Topic.Body
-    </div>
-    <div class="mb-5">
-        de <a asp-action="Index" asp-controller="Profile" asp-route-userId=@Model.Topic.Author.Id >
-            @Model.Topic.Author.FirstName @Model.Topic.Author.LastName
-        </a> postée le @Model.Topic.Date
-    </div>
-</section>
-
-<section>
-    <h4>Réponses</h4>
-    <div>
-        @foreach (Message answer in Model.Topic.Responses)
-        {
-            <div>
+        <div >
+            <section>
+                @if (Model.Topic.Id > 0)
+                {
+                    <input type="hidden" name="id" value="@Model.Topic.Id" />
+                }
                 <div>
-                    @answer.Body
+                    <h1>@Model.Topic.Question</h1>
                 </div>
                 <div>
-                    réponse postée par @answer.User.FirstName @answer.User.LastName  le @answer.Date
+                    @Model.Topic.Body
                 </div>
-            </div>
-            <a asp-action="GetReportButton" asp-controller="Topic" asp-route-user_id=@answer.Id asp-route-topic_id=@Model.Topic.Id>Signaler</a>
-        }
-    </div>
-</section>
+                <div class="mb-5">
+                    de <a asp-action="Index" asp-controller="Profile" asp-route-userId=@Model.Topic.Author.Id>
+                        @Model.Topic.Author.FirstName @Model.Topic.Author.LastName
+                    </a> postée le @Model.Topic.Date
+                </div>
+            </section>
 
-<section>
-    <h4>Votre réponse</h4>
-    <form asp-controller="Topic" asp-action="SubmitAnswer" method="post" asp-route-Id_topic="Id" asp-route-Id_user="Id_user">
-        <input type="hidden" name="Id_topic" value="@Model.Topic.Id" />
-        <input type="hidden" name="Id_user" value=@ViewBag.CurrentUser />
+            <section>
+                <h4>Réponses</h4>
+                <div>
+                    @foreach (Message answer in Model.Topic.Responses)
+                    {
+                        <div>
+                            <div>
+                                @answer.Body
+                            </div>
+                            <div>
+                                réponse postée par @answer.User.FirstName @answer.User.LastName  le @answer.Date
+                            </div>
+                        </div>
+                        <a asp-action="GetReportButton" asp-controller="Topic" asp-route-user_id=@answer.Id asp-route-topic_id=@Model.Topic.Id>Signaler</a>
+                    }
+                </div>
+            </section>
 
-        <div class="input-group mb-3">
-            <textarea name="Body" class="form-control" style="height : 300px" placeholder="Ecrivez votre réponse ici..."></textarea>
+            <section>
+                <h4>Votre réponse</h4>
+                <form asp-controller="Topic" asp-action="SubmitAnswer" method="post" asp-route-Id_topic="Id" asp-route-Id_user="Id_user">
+                    <input type="hidden" name="Id_topic" value="@Model.Topic.Id" />
+                    <input type="hidden" name="Id_user" value=@ViewBag.CurrentUser />
+
+                    <div class="input-group mb-3">
+                        <textarea name="Body" class="form-control" style="height : 250px" placeholder="Ecrivez votre réponse ici..."></textarea>
+                    </div>
+
+                    <div class="justify-content-center m-2">
+                        <button class="btn btn-success" type="submit">Publier la réponse</button><span class="text-light">En cliquant sur le boutton "Poster la question", votre question deviendra public</span>
+                    </div>
+                </form>
+            </section>
         </div>
-
-        <div class="justify-content-center m-2">
-            <button class="btn btn-success" type="submit">Publier la réponse</button><span class="text-light">En cliquant sur le boutton "Poster la question", votre question deviendra public</span>
-        </div>
-    </form>
-</section>

@@ -37,7 +37,8 @@ namespace devTalksASP
             services.AddScoped<IRepository<Techno>, TechnoRepository>();
             services.AddTransient<StateManagementService>();
             services.AddScoped<TopicService>();
-            
+            services.AddTransient<FormatService>();
+            services.AddScoped<NavService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
