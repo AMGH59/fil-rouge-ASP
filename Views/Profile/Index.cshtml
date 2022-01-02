@@ -67,17 +67,18 @@
                 <div class="card">
                     <div class="bg-light">
                         <div class="card-body">
-                            <p class="card-title mb-0">
+                            <h5 class="card-title mb-0">
                                 <a asp-action="Detail" asp-controller="Topic" asp-route-id=@topic.Id>
                                     @topic.Question
                                 </a>
+                            </h5>
+                            <br/>
+                            <p class="card-text">
+                                <a asp-action="Detail" asp-controller="Topic" asp-route-id=@topic.Id>
+                                    @_formatService.TextReduction(topic.Body)
+                                </a>
                             </p>
                         </div>
-                        <p class="card-text">
-                            <a asp-action="Detail" asp-controller="Topic" asp-route-id=@topic.Id>
-                                @_formatService.TextReduction(topic.Body)
-                            </a>
-                        </p>
                         <div class="d-flex">
                             @if (topic.StateTopic == Topic.StateEnum.InProgress && @ViewBag.CurrentUser.Id == @ViewBag.User.Id)
                             {

@@ -1,40 +1,59 @@
 ﻿@model TopicMessageViewModel
 
-        <div >
-            <section>
-                @if (Model.Topic.Id > 0)
-                {
-                    <input type="hidden" name="id" value="@Model.Topic.Id" />
-                }
-                <div>
-                    <h1>@Model.Topic.Question</h1>
-                </div>
-                <div>
-                    @Model.Topic.Body
-                </div>
-                <div class="mb-5">
+        <div class="ml-4">
+            <section class="mb-5">
+  
+                <h1>
+                    @if (Model.Topic.Id > 0)
+                    {
+                        <input type="hidden" name="id" value="@Model.Topic.Id" />
+                    }
+
+                    @if (Model.Topic.StateTopic == Topic.StateEnum.Resolved)
+                    {
+                        <span class="badge badge-success">Resolu</span>
+                    }
+                    else if (Model.Topic.StateTopic == Topic.StateEnum.Disallow)
+                    {
+                        <span class="badge badge-danger">Supprimé</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-info">Ouvert</span>
+                    }
+                    <br />
+                    @Model.Topic.Question
+                </h1>
+                
+                <div class="mb-4">
                     de <a asp-action="Index" asp-controller="Profile" asp-route-userId=@Model.Topic.Author.Id>
                         @Model.Topic.Author.FirstName @Model.Topic.Author.LastName
                     </a> postée le @Model.Topic.Date
                 </div>
+                <hr />
+                <div class="mb-2">
+                    @Model.Topic.Body
+                </div>
+                <hr />
             </section>
 
-            <section>
-                <h4>Réponses</h4>
-                <div>
-                    @foreach (Message answer in Model.Topic.Responses)
-                    {
-                        <div>
-                            <div>
-                                @answer.Body
-                            </div>
-                            <div>
-                                réponse postée par @answer.User.FirstName @answer.User.LastName  le @answer.Date
-                            </div>
-                        </div>
-                        <a asp-action="GetReportButton" asp-controller="Topic" asp-route-user_id=@answer.Id asp-route-topic_id=@Model.Topic.Id>Signaler</a>
-                    }
-                </div>
+            <section class="mt-4">
+                <h4 class="mb-3">Réponses</h4>
+                @for (var i = 0; i < Model.Topic.Responses.Count(); i++)
+                {
+                    <div class=@(i % 2 == 0 ? "bg-light mb-4" : "mb-4")>
+                        <p class="pt-2 pl-2">
+                            Postée par <a asp-action="Index" asp-controller="Profile" asp-route-userId=@Model.Topic.Responses[i].User.Id>
+                                @Model.Topic.Responses[i].User.FirstName @Model.Topic.Responses[i].User.LastName
+                            </a> le @Model.Topic.Responses[i].Date : <br />
+                        </p>
+                        <p class="p-4">
+                            @Model.Topic.Responses[i].Body
+                        </p>
+                    </div>
+                    <a asp-action="GetReportButton" asp-controller="Topic" asp-route-user_id=@Model.Topic.Responses[i].Id asp-route-topic_id=@Model.Topic.Responses[i] del.Topic.Id>Signaler</a>
+                    <hr />
+                }
             </section>
 
             <section>

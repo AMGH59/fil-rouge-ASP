@@ -66,7 +66,7 @@ namespace devTalksASP.Controllers
             answer.User= _userRepository.FinById(Id_user);
             answer.Topic = _topicRepository.FinById(Id_topic);
             _messageRepository.Save(answer);
-            return RedirectToAction("Index");
+            return RedirectToAction("Detail","Topic",new { id = Id_topic });
         }
         public IActionResult GetReportButton(int user_id,int topic_id)
         {
