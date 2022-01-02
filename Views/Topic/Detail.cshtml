@@ -29,7 +29,8 @@
                     réponse postée par @answer.User.FirstName @answer.User.LastName  le @answer.Date
                 </div>
             </div>
-        }
+            <a asp-action="GetReportButton" asp-controller="Topic" asp-route-user_id=@answer.Id asp-route-topic_id=@Model.Topic.Id>Signaler</a>
+        }ans
     </div>
 </section>
 

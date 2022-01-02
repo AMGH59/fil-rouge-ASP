@@ -68,5 +68,12 @@ namespace devTalksASP.Controllers
             _messageRepository.Save(answer);
             return RedirectToAction("Index");
         }
+        public IActionResult GetReportButton(int user_id,int topic_id)
+        {
+            Message answer = _messageRepository.FinById(user_id);
+            answer.StateMessage = Message.StateMessageEnum.Reported;
+            _messageRepository.Update(answer);
+            return RedirectToAction("Detail", "Topic", new { id = topic_id });
+        }
     }
 }
