@@ -9,10 +9,12 @@ namespace devTalksASP.Controllers
     public class TechnoController : Controller
     {
         IRepository<Techno> _technoRepository;
+        IRepository<Topic> _topicRepository;
         private IHttpContextAccessor _accessor;
-        public TechnoController(IRepository<Techno> technoRepository, IHttpContextAccessor accessor)
+        public TechnoController(IRepository<Techno> technoRepository,IRepository<Topic> topicRepository, IHttpContextAccessor accessor)
         {
             _technoRepository = technoRepository;
+            _topicRepository = topicRepository;
             _accessor = accessor;
         }
         public IActionResult Index()
