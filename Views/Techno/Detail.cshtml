@@ -1,0 +1,33 @@
+﻿@model Techno
+
+<section class="w-75 h-100">
+    <div>
+        @if (Model.Id > 0)
+        {
+            <input type="hidden" name="id" value="@Model.Id" />
+        }
+
+        <div class="mb-3">
+            @*<span class="badge badge-info">
+                <span>Réf</span>
+                @if (Model.Topics == null)
+                {
+                    <span class="badge badge-light">0</span>
+                }
+                else
+                {
+                    <span class="badge badge-light">@Model.Topics.Count</span>
+                }
+            </span>*@
+            <div class="text-center">
+                <h1>@Model.Name</h1>
+            </div>
+            <div class="text-center">
+                <p>@Model.Description</p>
+            </div>
+        </div>
+        <div class="text-center ">
+            <a asp-controller="Techno" asp-action="Index" class="btn btn-success">Retour à la liste</a>
+        </div>
+    </div>
+</section>
