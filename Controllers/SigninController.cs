@@ -44,7 +44,7 @@ namespace devTalksASP.Controllers
                     if (_userRepository.Save(user))
                     {
                         _signinService.Login(user.Email, user.Password);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Topic");
                     }
                 }
                 return RedirectToAction("Index", "Signin", new { createnError = "L'adresse email est déjà utilisé." });
