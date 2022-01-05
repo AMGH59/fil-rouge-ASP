@@ -54,10 +54,8 @@ namespace devTalksASP.Controllers
         public IActionResult Detail(int id)
         {
             Topic topic = _topicRepository.FinById(id);
-            //List<Message> responses = _messageRepository.GetAllByTopic(id);
             TopicMessageViewModel tmvm = new TopicMessageViewModel();
             tmvm.Topic = topic;
-            //tmvm.Messages = responses;
             ViewBag.CurrentUser = _accessor.HttpContext.Session.GetInt32("id");
             return View(tmvm);
         }
