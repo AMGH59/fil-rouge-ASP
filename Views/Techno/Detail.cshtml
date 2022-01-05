@@ -8,17 +8,17 @@
         }
 
         <div class="mb-3">
-            @*<span class="badge badge-info">
+            <span class="badge badge-info">
                 <span>Réf</span>
-                @if (Model.Topics == null)
+                @if (ViewBag.NbTopic == null)
                 {
                     <span class="badge badge-light">0</span>
                 }
                 else
                 {
-                    <span class="badge badge-light">@Model.Topics.Count</span>
+                    <span class="badge badge-light">@ViewBag.NbTopic</span>
                 }
-            </span>*@
+            </span>
 
             <div class="text-center">
                 <h1>@Model.Name</h1>
