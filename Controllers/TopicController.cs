@@ -75,5 +75,9 @@ namespace devTalksASP.Controllers
             _messageRepository.Update(answer);
             return RedirectToAction("Detail", "Topic", new { id = topic_id });
         }
+        public IActionResult GoToTechno()
+        {
+            return RedirectToAction("Index", "Techno");
+        }
     }
 }
