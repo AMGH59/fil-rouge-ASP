@@ -21,6 +21,7 @@
                 <p>@Model.Description</p>
             </div>
         </div>
+        <hr/>
         @foreach (Topic t in ViewBag.Topics)
         {
             @if (t.StateTopic != Topic.StateEnum.Disallow)

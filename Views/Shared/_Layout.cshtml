@@ -14,13 +14,13 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="height: 70px;" >
             <div class="container">
                 @if (!_signinService.IsLogged())
                 {
 
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                        <img src=~/img/devtalks-logo-rsz.png alt="devtalks-logo" class="devtalk-logo align-items-start" />
+                        <img src=~/img/devtalks-logo-rsz.png alt="devtalks-logo" class="devtalk-logo align-items-start" style="height: 45px;" />
                     </a>
                     <div class="d-flex  justify-content-end">
 
@@ -31,37 +31,34 @@
                 }
                 else
                 {
-
                     <a class="navbar-brand" asp-area="" asp-controller="Topic" asp-action="Index">
-                        <img src=~/img/devtalks-logo-rsz.png alt="devtalks-logo" class="devtalk-logo align-items-start" />
+                        <img src=~/img/devtalks-logo-rsz.png alt="devtalks-logo" class="align-items-start"  style="height: 45px;" />
                     </a>
-                    <div class="d-flex  justify-content-end dropdown">
-                        <ul class='menu'>
-                            <img src=~/img/user-pic.jpg alt="user-logo " class='user-logo logo-hover border shadow-sm p-1' />
-                            <li class='scrolling-menu' style="width:147px">
-                                <ul class='shadow menu-content bg-light p-0 border '>
-                                    <li>
-                                        <a asp-action="Index" asp-controller="Profile" class='dropdown-item'>
-                                            Votre Profil
-                                        </a>
-                                    </li>
-                                    <div class="pr-2 pl-2 border-top mt-2">
-                                    <li><small>Vous n'êtes pas <br><b>@_signinService.CurrentUser.FirstName @_signinService.CurrentUser.LastName</b> ?</small></li>
-                                    <li class='small'>
-                                        <a asp-action="Logout" asp-controller="Signin" asp-route-type="reco">
-                                            changer d'utilsateur
-                                        </a>
-                                    </li>
-                                    <li class='small'>ou <a asp-action="Logout" asp-controller="Signin" asp-route-type="deco">se déconnecter</a>  </li>
-                    </div>
-
-                    </ul>
+            <div class="dropdown">
+                <a href="#" id="imageDropdown" data-toggle="dropdown">
+                    <img src=~/img/user-pic.jpg class="border shadow-sm p-1" style="height: 45px;">
+                </a>
+                <ul class="dropdown-menu text-center shadow-sm">
+                    <li>
+                        <a asp-action="Index" asp-controller="Profile" tabindex="-1">
+                            Votre Profil
+                        </a>
                     </li>
-                    </ul>
-                </div>
+                    <hr />
+                    <li>
+                        <small>Vous n'êtes pas <br><b>@_signinService.CurrentUser.FirstName @_signinService.CurrentUser.LastName</b> ?</small>
+                    </li>
+                    <li class='small'>
+                        <a asp-action="Logout" asp-controller="Signin" asp-route-type="reco">
+                            changer d'utilsateur
+                        </a>
+                    </li>
+                    <li class='small'>ou <a asp-action="Logout" asp-controller="Signin" asp-route-type="deco">se déconnecter</a>  </li>
+                </ul>
+            </div>
 
-            }
-                </div>
+                }
+            </div>
             </nav>
         </header>
         <main role="main" class="pb-3">
