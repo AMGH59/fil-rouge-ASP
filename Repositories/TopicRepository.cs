@@ -17,7 +17,7 @@ namespace devTalksASP.Repositories
 
         public Topic FinById(int id)
         {
-            return _dataContext.Topics.Include(t => t.Author).Include(t => t.Responses).Include(t => t.Technos).FirstOrDefault(t=>t.Id==id);
+            return _dataContext.Topics.Include(t => t.Author).Include(t => t.Responses).ThenInclude(r=>r.User).Include(t => t.Technos).FirstOrDefault(t=>t.Id==id);
         }
         public bool Save(Topic topic)
         {
@@ -27,7 +27,7 @@ namespace devTalksASP.Repositories
 
         public IEnumerable<Topic> Search(Func<Topic, bool> predicate)
         {
-            return _dataContext.Topics.Include(t => t.Author).Include(t => t.Responses).Include(t => t.Technos).Where(m => predicate(m)).ToList();
+            return _dataContext.Topics.Include(t => t.Author).Include(t => t.Responses).ThenInclude(r => r.User).Include(t => t.Technos).Where(m => predicate(m)).ToList();
         }
 
         public bool Update(Topic topic)
@@ -43,7 +43,7 @@ namespace devTalksASP.Repositories
 
         public IEnumerable<Topic> Search(Expression<Func<Topic, bool>> predicate)
         {
-            return _dataContext.Topics.Include(t => t.Author).Include(t => t.Responses).Include(t => t.Technos).Where(predicate).ToList();
+            return _dataContext.Topics.Include(t => t.Author).Include(t => t.Responses).ThenInclude(r => r.User).Include(t => t.Technos).Where(predicate).ToList();
         }
 
         public Topic SearchOne(Expression<Func<Topic, bool>> searchMethode)
@@ -53,7 +53,7 @@ namespace devTalksASP.Repositories
 
         public IEnumerable<Topic> GetAll()
         {
-            return _dataContext.Topics.Include(t => t.Author).Include(t => t.Responses).Include(t => t.Technos).ToList();
+            return _dataContext.Topics.Include(t => t.Author).Include(t => t.Responses).ThenInclude(r => r.User).Include(t => t.Technos).ToList();
         }
     }
 }
