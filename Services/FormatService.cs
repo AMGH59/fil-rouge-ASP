@@ -10,7 +10,7 @@ namespace devTalksASP.Services
         public FormatService() { }
         public string TextReduction(string text)
         {
-            return text.Length > 300 ? text.Substring(0, 300) + "..." : text;
+            return text.Length > 300 ? text.Substring(0, 200) + "..." : text;
         }
     }
 }

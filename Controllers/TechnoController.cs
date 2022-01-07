@@ -1,5 +1,6 @@
 ﻿using devTalksASP.Interfaces;
 using devTalksASP.Models;
+using devTalksASP.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -9,26 +10,23 @@ namespace devTalksASP.Controllers
 {
     public class TechnoController : Controller
     {
-        IRepository<Techno> _technoRepository;
-        IRepository<Topic> _topicRepository;
+        TechnoService _technoService;
         private IHttpContextAccessor _accessor;
-        public TechnoController(IRepository<Techno> technoRepository,IRepository<Topic> topicRepository, IHttpContextAccessor accessor)
+        public TechnoController(TechnoService technoService, IHttpContextAccessor accessor)
         {
-            _technoRepository = technoRepository;
-            _topicRepository = topicRepository;
+            _technoService = technoService;
             _accessor = accessor;
         }
         public IActionResult Index()
         {
-            List<Techno> technos = (List<Techno>)_technoRepository.GetAll();
-            
-            return View("Index", technos);
+            Dictionary<Techno, int> technosDict = _technoService.GetTechnosCountPairs();
+            return View("Index", technosDict);
         }
 
         public IActionResult Detail(int id)
         {
-            Techno techno = _technoRepository.FinById(id);
-            ViewBag.NbTopic = _topicRepository.Search(t => t.Technos.Contains(techno)).ToList().Count();
+            Techno techno = _technoService.FindTechnoById(id);
+            ViewBag.Topics = _technoService.FindTopicsByTechno(techno);
             ViewBag.CurrentUser = _accessor.HttpContext.Session.GetInt32("id");
             return View(techno);
         }

@@ -2,105 +2,104 @@
 @inject FormatService _formatService;
 
 
-    <section class="w-75 h-75 ">
-        <section>
-            <form asp-controller="Topic" asp-action="SubmitSearch" method="post">
-                <div class="row m-2 justify-content-center">
-                    <input type="text" name="searchNavbar" placeholder="Votre recherche ici..." class="col-5 form-control" />
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </div>
-            </form>
-        </section>
-        @if (Model != null)
-        {
-            @if (Model.Count == 0)
-            {
-                <div class="col alert alert-danger justify-content-center text-center">
-                    No question available
-                </div>
-            }
-            else
-            {
-    <div>
-        @foreach (Topic t in Model)
-        {
+<section class="w-75 h-75 ">
+    <section class="d-flex">
+        <form class='col-10'asp-controller="Topic" asp-action="SubmitSearch" method="post">
+            <div class="row mt-2 mb-2 justify-content-center">
+                <input type="text" name="searchNavbar" placeholder="Votre recherche ici..." class="col-5 form-control" />
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+        <div class="row justify-content-center mt-2 mb-2">
+            <a class="btn btn-info" asp-controller="Topic" asp-action="NewTopicForm">Post New Question</a>
+        </div>
+    </section>
+    @if (Model != null)
+    {
 
-
-            @if (t.StateTopic != Topic.StateEnum.Disallow)
-            {
-                <div class=" ml-4 mb-4 ">
-                    @if (t.StateTopic == Topic.StateEnum.Resolved)
-                    {
-                        <span class="badge badge-success">Resolu</span>
-
-                    }
-                    else if (t.StateTopic == Topic.StateEnum.Disallow)
-                    {
-                        <span class="badge badge-danger">Supprimé</span>
-
-                    }
-                    else
-                    {
-                        <span class="badge badge-info">Ouvert</span>
-                    }
-                    <div class="card">
-                        <div class="bg-light">
-                            <div class="card-body">
-                                <h5 class="card-title mb-0">
-                                    <a asp-action="Detail" asp-controller="Topic" asp-route-id=@t.Id>
-                                        @t.Question
-                                    </a>
-                                </h5>
-                                <br />
-                                <p class="card-text">
-                                    <a asp-action="Detail" asp-controller="Topic" asp-route-id=@t.Id>
-                                        @_formatService.TextReduction(t.Body)
-                                    </a>
-                                </p>
-                            </div>
-                            <div class="card-footer text-muted">
-                                de
-                                @if (t.Author.StateUser == devTalksASP.Models.User.StateEnum.Ban)
-                                {
-                                    @(t.Author.FirstName+" "+t.Author.LastName)
-
-                                }
-                                else
-                                {
-                                    <a asp-action="Index" asp-controller="Profile" asp-route-userId=@t.Author.Id>
-                                        @t.Author.FirstName @t.Author.LastName
-                                    </a>
-                                }
-                                postée le @t.Date
-                            </div>
-                        </div>
-                    </div>
-                    @foreach (Techno techno in t.Technos)
-                    {
-                        <span class="badge badge-secondary">@techno.Name</span>
-                    }
-                    <span class="badge badge-info">
-                        @if (t.Responses.Count() > 1)
-                        {<span>Réponses</span>}
-                        else
-                        { <span>Réponse</span>} <span class="badge badge-light">@t.Responses.Count()</span>
-                    </span>
-                </div>
-            }
-        }
-
-    </div>
-            }
-        }
-        else if (Model.Count == 0)
+        @if (Model.Count == 0)
         {
             <div class="col alert alert-danger justify-content-center text-center">
                 No question available
             </div>
         }
-        <div class="row justify-content-center m-2">
-            <a class="btn btn-info" asp-controller="Topic" asp-action="NewTopicForm">Post New Question</a>
+        else
+        {
+            <div>
+                @foreach (Topic t in Model)
+                {
+                    @if (t.StateTopic != Topic.StateEnum.Disallow)
+                    {
+                        <div class=" ml-4 mb-4 ">
+                            @if (t.StateTopic == Topic.StateEnum.Resolved)
+                            {
+                                <span class="badge badge-success">Resolu</span>
+
+                            }
+                            else if (t.StateTopic == Topic.StateEnum.Disallow)
+                            {
+                                <span class="badge badge-danger">Supprimé</span>
+
+                            }
+                            else
+                            {
+                                <span class="badge badge-info">Ouvert</span>
+                            }
+                            <div class="card">
+                                <div class="bg-light">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-0">
+                                            <a asp-action="Detail" asp-controller="Topic" asp-route-id=@t.Id>
+                                                @t.Question
+                                            </a>
+                                        </h5>
+                                        <br />
+                                        <p class="card-text">
+                                            <a asp-action="Detail" asp-controller="Topic" asp-route-id=@t.Id>
+                                                @_formatService.TextReduction(t.Body)
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        de
+                                        @if (t.Author.StateUser == devTalksASP.Models.User.StateEnum.Ban)
+                                        {
+                                            @(t.Author.FirstName+" "+t.Author.LastName)
+
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="Index" asp-controller="Profile" asp-route-userId=@t.Author.Id>
+                                                @t.Author.FirstName @t.Author.LastName
+                                            </a>
+                                        }
+                                        postée le @t.Date
+                                    </div>
+                                </div>
+                            </div>
+                            @foreach (Techno techno in t.Technos)
+                            {
+                                <span class="badge badge-secondary">@techno.Name</span>
+                            }
+                            <span class="badge badge-info">
+                                @if (t.Responses.Count() > 1)
+                                {<span>Réponses</span>}
+                                else
+                                { <span>Réponse</span>} <span class="badge badge-light">@t.Responses.Count()</span>
+                            </span>
+                        </div>
+                    }
+                }
+
+            </div>
+        }
+    }
+    else if (Model.Count == 0)
+    {
+        <div class="col alert alert-danger justify-content-center text-center">
+            No question available
         </div>
-    </section>
+    }
+</section>
 
 

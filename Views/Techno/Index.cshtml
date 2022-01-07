@@ -1,32 +1,30 @@
-﻿@model List<Techno>
+﻿@model Dictionary<Techno,int>
 @inject FormatService _formatService;
 
-<section class="w-75 h-75 ">
-    <div>
+<section>
         @if (Model != null)
         {
-            <div>
-                @foreach (Techno t in Model)
+            <div class="d-flex flex-wrap justify-content-around m-2">
+                @foreach (Techno t in Model.Keys)
                 {
-                    <div class="card m-2">
-                        <div class="bg-light">
-                            <div class="card-body">
-                                <h5 class="card-title mb-0">
-                                    <a asp-controller="Techno" asp-action="Detail" asp-route-id=@t.Id>
-                                        @t.Name
-                                    </a>
-                                </h5>
-                                <br />
-                                <p class="card-text">
-                                    <a asp-controller="Techno" asp-action="Detail" asp-route-id=@t.Id>
-                                        @_formatService.TextReduction(t.Description)
-                                    </a>
-                                </p>
-                            </div>
+                    <div class="card m-2 bg-light text-justify" style="width: 22rem;">
+                        <div class="card-body">
+                            <h5 class="card-title mb-0">
+                                <a asp-controller="Techno" asp-action="Detail" asp-route-id=@t.Id>
+                                    @t.Name
+                                </a>
+                            </h5>
+                            <br />
+                            <p class="card-text">
+                                <a asp-controller="Techno" asp-action="Detail" asp-route-id=@t.Id>
+                                    @_formatService.TextReduction(t.Description)
+                                </a>
+                            </p>
+                            <br />
+                            <p class="text-muted">@(Model[t] > 1 ? $"{Model[t]} sujets." : $"{Model[t]} sujet.")</p>
                         </div>
-                    </div>
+                        </div>
                 }
             </div>
         }
-    </div>
 </section>

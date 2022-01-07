@@ -39,6 +39,7 @@ namespace devTalksASP
             services.AddScoped<TopicService>();
             services.AddTransient<FormatService>();
             services.AddScoped<NavService>();
+            services.AddTransient<TechnoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

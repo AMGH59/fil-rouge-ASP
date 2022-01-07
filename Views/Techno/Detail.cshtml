@@ -1,6 +1,7 @@
 ﻿@model Techno
+@inject FormatService _formatService;
 
-<section class="w-75 h-100">
+<section class="w-75 h-100 ml-4">
     <div>
         @if (Model.Id > 0)
         {
@@ -8,25 +9,82 @@
         }
 
         <div class="mb-3">
-            <span class="badge badge-info">
-                <span>Réf</span>
-                @if (ViewBag.NbTopic == null)
-                {
-                    <span class="badge badge-light">0</span>
-                }
-                else
-                {
-                    <span class="badge badge-light">@ViewBag.NbTopic</span>
-                }
-            </span>
+            <h1 class="badge badge-info">
+                <span>@(Enumerable.Count(ViewBag.Topics) > 1 ? "Références" : "Référence")</span>
+                <span class="badge badge-light">@(Enumerable.Count(ViewBag.Topics))</span>
+            </h1>
 
-            <div class="text-center">
+            <div class="text">
                 <h1>@Model.Name</h1>
             </div>
-            <div class="text-center">
+            <div class="text-justify">
                 <p>@Model.Description</p>
             </div>
         </div>
+        @foreach (Topic t in ViewBag.Topics)
+        {
+            @if (t.StateTopic != Topic.StateEnum.Disallow)
+            {
+                <div class="mb-4 ">
+                    @if (t.StateTopic == Topic.StateEnum.Resolved)
+                    {
+                        <span class="badge badge-success">Resolu</span>
+
+                    }
+                    else if (t.StateTopic == Topic.StateEnum.Disallow)
+                    {
+                        <span class="badge badge-danger">Supprimé</span>
+
+                    }
+                    else
+                    {
+                        <span class="badge badge-info">Ouvert</span>
+                    }
+                    <div class="card">
+                        <div class="bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title mb-0">
+                                    <a asp-action="Detail" asp-controller="Topic" asp-route-id=@t.Id>
+                                        @t.Question
+                                    </a>
+                                </h5>
+                                <br />
+                                <p class="card-text">
+                                    <a asp-action="Detail" asp-controller="Topic" asp-route-id=@t.Id>
+                                        @_formatService.TextReduction(t.Body)
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="card-footer text-muted">
+                                de
+                                @if (t.Author.StateUser == devTalksASP.Models.User.StateEnum.Ban)
+                                {
+                                    @(t.Author.FirstName+" "+t.Author.LastName)
+
+                                }
+                                else
+                                {
+                                    <a asp-action="Index" asp-controller="Profile" asp-route-userId=@t.Author.Id>
+                                        @t.Author.FirstName @t.Author.LastName
+                                    </a>
+                                }
+                                postée le @t.Date
+                            </div>
+                        </div>
+                    </div>
+                    @foreach (Techno techno in t.Technos)
+                    {
+                        <span class="badge badge-secondary">@techno.Name</span>
+                    }
+                    <span class="badge badge-info">
+                        @if (t.Responses.Count() > 1)
+                        {<span>Réponses</span>}
+                        else
+                        { <span>Réponse</span>} <span class="badge badge-light">@t.Responses.Count()</span>
+                    </span>
+                </div>
+            }
+        }
         <div class="text-center ">
             <a asp-controller="Techno" asp-action="Index" class="btn btn-success">Retour à la liste</a>
         </div>
