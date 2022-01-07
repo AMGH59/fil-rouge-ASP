@@ -26,9 +26,19 @@
                 </h1>
                 
                 <div class="mb-4">
-                    de <a asp-action="Index" asp-controller="Profile" asp-route-userId=@Model.Topic.Author.Id>
-                        @Model.Topic.Author.FirstName @Model.Topic.Author.LastName
-                    </a> postée le @Model.Topic.Date
+                    de                             
+                    @if (Model.Topic.Author.StateUser == devTalksASP.Models.User.StateEnum.Ban)
+                    {
+                        @(Model.Topic.Author.FirstName+" "+Model.Topic.Author.LastName)
+
+                    }
+                    else
+                    {
+                        <a asp-action="Index" asp-controller="Profile" asp-route-userId=@Model.Topic.Author.Id>
+                            @Model.Topic.Author.FirstName @Model.Topic.Author.LastName
+                        </a>
+                    } 
+                    postée le @Model.Topic.Date
                 </div>
                 <hr />
                 <div class="mb-2">
@@ -43,19 +53,43 @@
                 {
                     <div class=@(i % 2 == 0 ? "bg-light mb-4" : "mb-4")>
                         <p class="pt-2 pl-2">
-                            Postée par <a asp-action="Index" asp-controller="Profile" asp-route-userId=@Model.Topic.Responses[i].User.Id>
-                                @Model.Topic.Responses[i].User.FirstName @Model.Topic.Responses[i].User.LastName
-                            </a> le @Model.Topic.Responses[i].Date : <br />
+                            Postée par
+                            @if (Model.Topic.Responses[i].User.StateUser == devTalksASP.Models.User.StateEnum.Ban)
+                            {
+                                @(Model.Topic.Responses[i].User.FirstName+" "+Model.Topic.Responses[i].User.LastName)
+
+                            }
+                            else
+                            {
+                                <a asp-action="Index" asp-controller="Profile" asp-route-userId=@Model.Topic.Responses[i].User.Id>
+                                    @Model.Topic.Responses[i].User.FirstName @Model.Topic.Responses[i].User.LastName
+                                </a>
+                            }
+                            le @Model.Topic.Responses[i].Date : <br />
                         </p>
-                        <p class="p-4">
-                            @Model.Topic.Responses[i].Body
-                        </p>
+                        @if (Model.Topic.Responses[i].StateMessage == Message.StateMessageEnum.Disallow)
+                        {
+                            <p class="p-4">
+                                Ce message a été supprimé.
+                            </p>
+
+                        }
+                        else
+                        {
+                            <p class="p-4">
+                                @Model.Topic.Responses[i].Body
+                            </p>
+                        }
                     </div>
-                    <a asp-action="GetReportButton" asp-controller="Topic" asp-route-user_id=@Model.Topic.Responses[i].Id asp-route-topic_id=@Model.Topic.Id>Signaler</a>
+
+                    @if (Model.Topic.Responses[i].StateMessage != Message.StateMessageEnum.Disallow)
+                    {
+                        <a asp-action="GetReportButton" asp-controller="Topic" asp-route-user_id=@Model.Topic.Responses[i].Id asp-route-topic_id=@Model.Topic.Id>Signaler</a>
+                    }
                     <hr />
+
                 }
             </section>
-
             <section>
                 <h4>Votre réponse</h4>
                 <form asp-controller="Topic" asp-action="SubmitAnswer" method="post" asp-route-Id_topic="Id" asp-route-Id_user="Id_user">
@@ -63,11 +97,11 @@
                     <input type="hidden" name="Id_user" value=@ViewBag.CurrentUser />
 
                     <div class="input-group mb-3">
-                        <textarea name="Body" class="form-control" style="height : 250px" placeholder="Ecrivez votre réponse ici..."></textarea>
+                        <textarea name="Body" class="form-control" style="height : 250px" placeholder="Ecrivez votre réponse ici..." @(Model.Topic.StateTopic==Topic.StateEnum.Disallow ? "disabled" : null)></textarea>
                     </div>
 
                     <div class="justify-content-center m-2">
-                        <button class="btn btn-success" type="submit">Publier la réponse</button><span class="text-light">En cliquant sur le boutton "Poster la question", votre question deviendra public</span>
+                        <button class="btn btn-success" type="submit" @(Model.Topic.StateTopic==Topic.StateEnum.Disallow ? "disabled" : null)>Publier la réponse</button><span class="text-light">En cliquant sur le boutton "Poster la question", votre question deviendra public</span>
                     </div>
                 </form>
             </section>
