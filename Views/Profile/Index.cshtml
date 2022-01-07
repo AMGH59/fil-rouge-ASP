@@ -6,105 +6,115 @@
 @inject FormatService _formatService
 
 
-    <section class="w-75 h-75">
-        @if (ViewBag.nTopics == 0)
-        {
+<section class="w-75 h-75">
+    @if (ViewBag.nTopics == 0)
+    {
         <div class="d-flex flex-column ml-5 mt-2">
             <h2>Cette section est vide.</h2>
             <div class="text-justify ">
                 <a class="btn btn-info" asp-controller="Topic" asp-action="NewTopicForm">Ouvrir un nouveau sujet</a>
             </div>
         </div>
-        }
-        else
-        {
-    <div class="ml-5 mt-2">
-        @if (@ViewBag.CurrentUser.Id == @ViewBag.User.Id)
-        {
-            <h2>Liste de vos sujets.</h2>
-        }
-        else
-        {
-            <h2>Les sujets de @ViewBag.User.FirstName @ViewBag.User.FirstName.</h2>
-        }
-        <div class="d-flex align-items-center">
-            <p>Trier par état d'avancement : </p>
-            <a class="btn btn-info m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="1" asp-route-userId=@ViewBag.User.Id>
-                Ouvert
-            </a>
-            <a class="btn btn-success m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="2"  asp-route-userId=@ViewBag.User.Id>
-                Résolu
-            </a>
-            <a class="btn btn-danger m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="3"  asp-route-userId=@ViewBag.User.Id>
-                Fermé
-            </a>
+    }
+    else
+    {
+        <div class="ml-5 mt-2">
+            @if (@ViewBag.CurrentUser.Id == @ViewBag.User.Id)
+            {
+                <h2>Liste de vos sujets.</h2>
+            }
+            else
+            {
+                <h2>Les sujets de @ViewBag.User.FirstName @ViewBag.User.FirstName.</h2>
+            }
+            <div class="d-flex align-items-center">
+                <p>Trier par état d'avancement : </p>
+                <a class="btn btn-info m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="1" asp-route-userId=@ViewBag.User.Id>
+                    Ouvert
+                </a>
+                <a class="btn btn-success m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="2" asp-route-userId=@ViewBag.User.Id>
+                    Résolu
+                </a>
+                <a class="btn btn-danger m-2" asp-action="Index" asp-controller="Profile" asp-route-choice="3" asp-route-userId=@ViewBag.User.Id>
+                    Fermé
+                </a>
+            </div>
         </div>
-    </div>
-        }
-        @if (ViewBag.Message != null)
-        {
-            <div class=@ViewBag.ClassMessage>@ViewBag.Message</div>
-        }
-        @foreach (Topic topic in ViewBag.Topics)
-        {
-            <div class=" ml-4 mb-4 ">
-                @if (topic.StateTopic == Topic.StateEnum.Resolved)
-                {
-                    <span class="badge badge-success">Resolu</span>
+    }
+    @if (ViewBag.Message != null)
+    {
+        <div class=@ViewBag.ClassMessage>@ViewBag.Message</div>
+    }
+    @foreach (Topic topic in ViewBag.Topics)
+    {
+        <div class=" ml-4 mb-4 ">
+            @if (topic.StateTopic == Topic.StateEnum.Resolved)
+            {
+                <span class="badge badge-success">Resolu</span>
 
-                }
-                else if (topic.StateTopic == Topic.StateEnum.Disallow)
-                {
-                    <span class="badge badge-danger">Supprimé</span>
+            }
+            else if (topic.StateTopic == Topic.StateEnum.Disallow)
+            {
+                <span class="badge badge-danger">Supprimé</span>
 
+            }
+            else
+            {
+                <span class="badge badge-info">Ouvert</span>
+
+            }
+
+            <div class="card">
+                <div class="bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0">
+                            <a asp-action="Detail" asp-controller="Topic" asp-route-id=@topic.Id>
+                                @topic.Question
+                            </a>
+                        </h5>
+                        <br />
+                        <p class="card-text">
+                            <a asp-action="Detail" asp-controller="Topic" asp-route-id=@topic.Id>
+                                @_formatService.TextReduction(topic.Body)
+                            </a>
+                        </p>
+                    </div>
+                    <div class="d-flex">
+                        @if (topic.StateTopic == Topic.StateEnum.InProgress && @ViewBag.CurrentUser.Id == @ViewBag.User.Id)
+                        {
+                            <a class="btn btn-secondary mt-0 mb-2 ml-2" asp-action="CloseTopic" asp-controller="Profile" asp-route-id=@topic.Id>
+                                Clôturer
+                            </a>
+                        }
+                        else if (topic.StateTopic == Topic.StateEnum.Resolved && @ViewBag.CurrentUser.Id == @ViewBag.User.Id)
+                        {
+                            <a class="btn btn-success mt-0 mb-2 ml-2" asp-action="CloseTopic" asp-controller="Profile" asp-route-id=@topic.Id>
+                                Ouvrir
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+            @foreach (Techno techno in topic.Technos)
+            {
+                <span class="badge badge-secondary">@techno.Name</span>
+            }
+
+            <span class="badge badge-info">
+                @if (@topic.Responses.Count() > 1)
+                {
+                    <span>Réponses</span>
                 }
                 else
                 {
-                    <span class="badge badge-info">Ouvert</span>
-
-                }
-
-                <div class="card">
-                    <div class="bg-light">
-                        <div class="card-body">
-                            <h5 class="card-title mb-0">
-                                <a asp-action="Detail" asp-controller="Topic" asp-route-id=@topic.Id>
-                                    @topic.Question
-                                </a>
-                            </h5>
-                            <br/>
-                            <p class="card-text">
-                                <a asp-action="Detail" asp-controller="Topic" asp-route-id=@topic.Id>
-                                    @_formatService.TextReduction(topic.Body)
-                                </a>
-                            </p>
-                        </div>
-                        <div class="d-flex">
-                            @if (topic.StateTopic == Topic.StateEnum.InProgress && @ViewBag.CurrentUser.Id == @ViewBag.User.Id)
-                            {
-                                <a class="btn btn-secondary mt-0 mb-2 ml-2" asp-action="CloseTopic" asp-controller="Profile" asp-route-id=@topic.Id>
-                                    Clôturer
-                                </a>
-                            }
-                        </div>
-                    </div>
-                </div>
-                @foreach (Techno techno in topic.Technos)
-                {
-                    <span class="badge badge-secondary">@techno.Name</span>
-                }
-
-                <span class="badge badge-info">
-                    @if (@topic.Responses.Count() > 1)
-                    {<span>Réponses</span>}
-                    else
-                    { <span>Réponse</span>} <span class="badge badge-light">@topic.Responses.Count()</span>
-                </span>
-            </div>
-        }
+                    <span>Réponse</span>
+                } <span class="badge badge-light">@topic.Responses.Count()</span>
+            </span>
+        </div>
+    }
 
 
-    </section>
+</section>
 
 
 

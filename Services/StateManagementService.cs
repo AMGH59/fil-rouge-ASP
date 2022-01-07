@@ -59,7 +59,14 @@ namespace devTalksASP.Services
             Topic t = _topicRepository.FinById(id);
             if(t != null)
             {
-                t.StateTopic = Topic.StateEnum.Resolved;
+                if(t.StateTopic == Topic.StateEnum.InProgress)
+                {
+                    t.StateTopic = Topic.StateEnum.Resolved;
+                }
+                else if(t.StateTopic == Topic.StateEnum.Resolved)
+                {
+                    t.StateTopic = Topic.StateEnum.InProgress;
+                }
                 _topicRepository.Update(t);
                 return true;
             }
