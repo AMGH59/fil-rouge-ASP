@@ -47,70 +47,70 @@
     }
     @foreach (Topic topic in ViewBag.Topics)
     {
-        <div class=" ml-4 mb-4 ">
-            @if (topic.StateTopic == Topic.StateEnum.Resolved)
-            {
-                <span class="badge badge-success">Resolu</span>
+<div class=" ml-4 mb-4 ">
+    @if (topic.StateTopic == Topic.StateEnum.Resolved)
+    {
+        <span class="badge badge-success">Resolu</span>
 
-            }
-            else if (topic.StateTopic == Topic.StateEnum.Disallow)
-            {
-                <span class="badge badge-danger">Supprimé</span>
+    }
+    else if (topic.StateTopic == Topic.StateEnum.Disallow)
+    {
+        <span class="badge badge-danger">Supprimé</span>
 
-            }
-            else
-            {
-                <span class="badge badge-info">Ouvert</span>
+    }
+    else
+    {
+        <span class="badge badge-info">Ouvert</span>
 
-            }
+    }
 
-            <div class="card">
-                <div class="bg-light">
-                    <div class="card-body">
-                        <h5 class="card-title mb-0">
-                            <a asp-action="Detail" asp-controller="Topic" asp-route-id=@topic.Id>
-                                @topic.Question
-                            </a>
-                        </h5>
-                        <br />
-                        <p class="card-text">
-                            <a asp-action="Detail" asp-controller="Topic" asp-route-id=@topic.Id>
-                                @_formatService.TextReduction(topic.Body)
-                            </a>
-                        </p>
-                    </div>
-                    <div class="d-flex">
-                        @if (topic.StateTopic == Topic.StateEnum.InProgress && @ViewBag.CurrentUser.Id == @ViewBag.User.Id)
-                        {
-                            <a class="btn btn-secondary mt-0 mb-2 ml-2" asp-action="CloseTopic" asp-controller="Profile" asp-route-id=@topic.Id>
-                                Clôturer
-                            </a>
-                        }
-                        else if (topic.StateTopic == Topic.StateEnum.Resolved && @ViewBag.CurrentUser.Id == @ViewBag.User.Id)
-                        {
-                            <a class="btn btn-info mt-0 mb-2 ml-2" asp-action="CloseTopic" asp-controller="Profile" asp-route-id=@topic.Id>
-                                Ouvrir
-                            </a>
-                        }
-                    </div>
-                </div>
+    <div class="card">
+        <div class="bg-light">
+            <div class="card-body">
+                <h5 class="card-title mb-0">
+                    <a asp-action="Detail" asp-controller="Topic" asp-route-id=@topic.Id>
+                        @topic.Question
+                    </a>
+                </h5>
+                <br />
+                <p class="card-text">
+                    <a asp-action="Detail" asp-controller="Topic" asp-route-id=@topic.Id>
+                        @_formatService.TextReduction(topic.Body)
+                    </a>
+                </p>
             </div>
-            @foreach (Techno techno in topic.Technos)
-            {
-                <span class="badge badge-secondary">@techno.Name</span>
-            }
-
-            <span class="badge badge-info">
-                @if (@topic.Responses.Count() > 1)
+            <div class="d-flex">
+                @if (topic.StateTopic == Topic.StateEnum.InProgress && @ViewBag.CurrentUser.Id == @ViewBag.User.Id)
                 {
-                    <span>Réponses</span>
+                    <a class="btn btn-secondary mt-0 mb-2 ml-2" asp-action="CloseTopic" asp-controller="Profile" asp-route-id=@topic.Id>
+                        Clôturer
+                    </a>
                 }
-                else
+                else if (topic.StateTopic == Topic.StateEnum.Resolved && @ViewBag.CurrentUser.Id == @ViewBag.User.Id)
                 {
-                    <span>Réponse</span>
-                } <span class="badge badge-light">@topic.Responses.Count()</span>
-            </span>
+                    <a class="btn btn-info mt-0 mb-2 ml-2" asp-action="CloseTopic" asp-controller="Profile" asp-route-id=@topic.Id>
+                        Ouvrir
+                    </a>
+                }
+            </div>
         </div>
+    </div>
+    <span class="badge badge-info">
+        @if (@topic.Responses.Count() > 1)
+        {
+            <span>Réponses</span>
+        }
+        else
+        {
+            <span>Réponse</span>
+        } <span class="badge badge-light">@topic.Responses.Count()</span>
+    </span>
+    @foreach (Techno techno in topic.Technos)
+    {
+        <span class="badge badge-secondary">@techno.Name</span>
+    }
+
+</div>
     }
 
 
