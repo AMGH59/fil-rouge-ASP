@@ -54,7 +54,6 @@ namespace devTalksASP
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseAuthorization();
@@ -68,12 +67,12 @@ namespace devTalksASP
                     pattern: "{controller=Home}/{action=Index}");
                 endpoints.MapControllerRoute(
                     name: "signin",
-                    pattern: "/signin",
+                    pattern: "/Signin",
                     defaults: "index"
                     );
                 endpoints.MapControllerRoute(
                     name: "profile",
-                    pattern: "/profile",
+                    pattern: "/Profile",
                     defaults: "index"
                     );
             });
