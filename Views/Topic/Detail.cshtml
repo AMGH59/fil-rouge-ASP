@@ -1,5 +1,4 @@
 ﻿@model TopicMessageViewModel
-
         <div class="ml-4">
             <section class="mb-5">
   
@@ -92,16 +91,18 @@
             </section>
             <section>
                 <h4>Votre réponse</h4>
-                <form asp-controller="Topic" asp-action="SubmitAnswer" method="post" asp-route-Id_topic="Id" asp-route-Id_user="Id_user">
+                <form asp-controller="Topic" asp-action="SubmitAnswer" method="post" asp-route-Id_topic="Id" asp-route-Id_user="Id_user" >
                     <input type="hidden" name="Id_topic" value="@Model.Topic.Id" />
                     <input type="hidden" name="Id_user" value=@ViewBag.CurrentUser />
 
-                    <div class="input-group mb-3">
-                        <textarea name="Body" class="form-control" style="height : 250px" placeholder="Ecrivez votre réponse ici..." @(Model.Topic.StateTopic==Topic.StateEnum.Disallow ? "disabled" : null)></textarea>
+                    <div class="input-group mb-3"  >
+                        <textarea name="Body" class="form-control" style="height : 250px; width : 800px " placeholder="Ecrivez votre réponse ici..." @(Model.Topic.StateTopic==Topic.StateEnum.Resolved || 
+                        Model.Topic.StateTopic==Topic.StateEnum.Disallow ? "disabled" : null)></textarea>
                     </div>
 
                     <div class="justify-content-center m-2">
-                        <button class="btn btn-success" type="submit" @(Model.Topic.StateTopic==Topic.StateEnum.Disallow ? "disabled" : null)>Publier la réponse</button><span class="text-light">En cliquant sur le boutton "Poster la question", votre question deviendra public</span>
+                        <button class="btn btn-success" type="submit" @(Model.Topic.StateTopic==Topic.StateEnum.Resolved || 
+                        Model.Topic.StateTopic==Topic.StateEnum.Disallow ? "disabled" : null)>Publier la réponse</button><span class="text-light">En cliquant sur le boutton "Poster la question", votre question deviendra public</span>
                     </div>
                 </form>
             </section>
