@@ -88,7 +88,7 @@
                         }
                         else if (topic.StateTopic == Topic.StateEnum.Resolved && @ViewBag.CurrentUser.Id == @ViewBag.User.Id)
                         {
-                            <a class="btn btn-success mt-0 mb-2 ml-2" asp-action="CloseTopic" asp-controller="Profile" asp-route-id=@topic.Id>
+                            <a class="btn btn-info mt-0 mb-2 ml-2" asp-action="CloseTopic" asp-controller="Profile" asp-route-id=@topic.Id>
                                 Ouvrir
                             </a>
                         }
